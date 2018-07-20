@@ -53,7 +53,7 @@ module.exports = {
     },
     ptashka: {
         area: 'frontend',
-        name: 'Magento/ptashka',
+        name: 'Stanislavz/ptashka',
         locale: 'en_US',
         files: [
             'css/styles-m',

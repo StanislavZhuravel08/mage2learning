@@ -1,0 +1,26 @@
+& when (@media-common = true) {
+    button.to-top {
+        display: none;
+        padding: 0;
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        background: @button-primary__background;
+        border: @button-primary__border;
+        box-shadow: none;
+
+        &:after {
+            content: '^';
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            font: 20px/40px @font-family-name__base;
+            color: @button-primary__color;
+        }
+
+        &:active, &:focus, &:hover {
+            background: @button-primary__active__background;
+            border: @button-primary__active__border;
+        }
+    }
+}

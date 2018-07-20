@@ -5,6 +5,6 @@
  */
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::THEME,
-    'frontend/Magento/ptashka', // Example: 'adminhtml/Magento/backend'
+    'frontend/Stanislavz/ptashka', // Example: 'adminhtml/Magento/backend'
     __DIR__
 );

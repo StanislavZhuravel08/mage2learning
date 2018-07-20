@@ -21,10 +21,6 @@
 .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
 }
 
-
-.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @custom__breakpoint) {
-
-}
 //
 //  Style groups for 'mobile' devices
 //  ---------------------------------------------
@@ -84,14 +80,3 @@
     }
 }
 
-
-//
-// Custom media-rule
-// -----------------------------------------
-
-& when (@media-target = 'mobile'), (@media-target = 'all') {
-
-    @media all and (min-width: @custom__breakpoint) {
-        .media-width('min', @custom__breakpoint);
-    }
-}
