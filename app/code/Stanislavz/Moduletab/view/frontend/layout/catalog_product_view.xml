@@ -2,10 +2,61 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="product.info.details">
-            <block class="Magento\Catalog\Block\Product\View" name="testimonials.tab" template="Stanislavz_Moduletab::custom_tab.phtml" group="detailed_info" after="-" ifconfig="">
+            <block class="Magento\Framework\View\Element\Text\ListText" name="product.info.testimonials" as="testimonials" group="detailed_info" after="-">
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.testimonials.1" template="Magento_Catalog::product/view/attribute.phtml">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getFirstTestimonial</argument>
+                        <argument name="at_code" xsi:type="string">first_testimonial</argument>
+                        <argument name="css_class" xsi:type="string">first_testimonial</argument>
+                        <argument name="at_label" xsi:type="string">default</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="testimonials"</argument>
+                    </arguments>
+                </block>
+
+                <!--block to init slider and set your tab to active-->
+
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.testimonials.2" template="Magento_Catalog::product/view/attribute.phtml">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getSecondTestimonial</argument>
+                        <argument name="at_code" xsi:type="string">second_testimonial</argument>
+                        <argument name="css_class" xsi:type="string">second_testimonial</argument>
+                        <argument name="at_label" xsi:type="string">second testimonial</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="testimonials2"</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.testimonials.3" template="Magento_Catalog::product/view/attribute.phtml">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getThirdTestimonial</argument>
+                        <argument name="at_code" xsi:type="string">third_testimonial</argument>
+                        <argument name="css_class" xsi:type="string">third_testimonial</argument>
+                        <argument name="at_label" xsi:type="string">third testimonial</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="testimonials3"</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.testimonials.4" template="Magento_Catalog::product/view/attribute.phtml">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getFourthTestimonial</argument>
+                        <argument name="at_code" xsi:type="string">fourth_testimonial</argument>
+                        <argument name="css_class" xsi:type="string">fourth_testimonial</argument>
+                        <argument name="at_label" xsi:type="string">fourth testimonial</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="testimonials4"</argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.testimonials.5" template="Magento_Catalog::product/view/attribute.phtml">
+                    <arguments>
+                        <argument name="at_call" xsi:type="string">getFifthTestimonial</argument>
+                        <argument name="at_code" xsi:type="string">fifth_testimonial</argument>
+                        <argument name="css_class" xsi:type="string">fifth_testimonial</argument>
+                        <argument name="at_label" xsi:type="string">fifth testimonial</argument>
+                        <argument name="add_attribute" xsi:type="string">itemprop="testimonials5"</argument>
+                    </arguments>
+                </block>
+
                 <arguments>
-                    <argument translate="true" name="title" xsi:type="string">Testimonials</argument>
-                    <argument name="data" xsi:type="string">true</argument>
+                    <argument name="title" translate="true" xsi:type="string">Testimonials</argument>
                 </arguments>
             </block>
         </referenceBlock>
