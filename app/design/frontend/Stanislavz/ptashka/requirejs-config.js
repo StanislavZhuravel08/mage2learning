@@ -1,7 +1,8 @@
 var config = {
     map: {
         "*": {
-            "scroll-top" : "js/scroll-top"
+            "scroll-top" : "js/scroll-top",
+            "testimonials"   : "js/testimonials"
         }
     }
 };

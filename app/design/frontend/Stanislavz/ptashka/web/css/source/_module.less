@@ -1,3 +1,5 @@
+@import "lib/_testimonial";
+
 & when (@media-common = true) {
 
     button.to-top {
@@ -25,56 +27,6 @@
         }
     }
 
-    // Testimonials slider
-    .product #testimonials {
-        width: 100%;
-        //overflow: hidden;
-        //position: relative;
-        //
-        //&:before, &:after {
-        //    display: inline-block;
-        //    position: absolute;
-        //    top: 40%;
-        //    width: 15px;
-        //    height: 15px;
-        //
-        //    font-size: 15px;
-        //    line-height: 15px;
-        //}
-        //
-        //&:before {
-        //    content: '<';
-        //    left: 15px;
-        //}
-        //
-        //&:after {
-        //    content: '>';
-        //    right: 15px;
-        //}
-        //
-        //.slider {
-        //    position: relative;
-        //    width: 500%;
-        //    font-size: 0;
-        //}
-
-        //div.attribute {
-        //    font-size: @font-size__base;
-        //    display: inline-block;
-        //    margin: 10px 0;
-        //    width: 20%;
-        //    text-align: center;
-        //
-        //    strong {
-        //        display: inline-block;
-        //        width: 100%;
-        //    }
-        //
-        //    .attribute {
-        //        width: 100%;
-        //    }
-        //}
-    }
 }
 
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {

@@ -3,7 +3,7 @@ define([
 ], function ($) {
     'use strict';
 
-    $.widget("custom.scrollToTop", {
+    $.widget("ptashka.scrollToTop", {
         /**
          * speed: int
          */
@@ -33,5 +33,5 @@ define([
         }
     });
 
-    return $.custom.scrollToTop;
+    return $.ptashka.scrollToTop;
 });

@@ -223,34 +223,34 @@
             </var>
         </var>
 
-        <var name="carousel">
-            <var name="nav">dots</var> <!-- Gallery navigation style (false/thumbs/dots) -->
-            <var name="loop">true</var> <!-- Gallery navigation loop (true/false) -->
-            <var name="keyboard">false</var> <!-- Turn on/off keyboard arrows navigation (true/false) -->
-            <var name="arrows">true</var> <!-- Turn on/off arrows on the sides preview (true/false) -->
-            <var name="caption">true</var> <!-- Display alt text as image title (true/false) -->
-            <var name="allowfullscreen">false</var> <!-- Turn on/off fullscreen (true/false) -->
-            <var name="navdir">horizontal</var> <!-- Sliding direction of thumbnails (horizontal/vertical) -->
-            <var name="navarrows">true</var> <!-- Turn on/off on the thumbs navigation sides arrows(true/false) -->
-            <var name="navtype">slides</var> <!-- Sliding type of thumbnails (slides/thumbs) -->
-            <var name="transition">
-                <var name="effect">slide</var> <!-- Sets transition effect for slides changing (slide/crossfade/dissolve) -->
-                <var name="duration">500</var> <!-- Sets transition duration in ms -->
-            </var>
-            <var name="fullscreen">
-                <var name="nav">thumbs</var> <!-- Fullscreen navigation style (false/thumbs/dots) -->
-                <var name="loop">true</var> <!-- Fullscreen navigation loop (true/false/null) -->
-                <var name="arrows">true</var> <!-- Turn on/off arrows on the sides preview in fullscreen (true/false/null) -->
-                <var name="caption">true</var> <!-- Display alt text as image title in fullscreen(true/false) -->
-                <var name="navdir">horizontal</var> <!--Sliding direction of thumbnails in fullscreen(horizontal/vertical)  -->
-                <var name="navarrows">false</var> <!-- Turn on/off on the thumbs navigation sides arrows(true/false) -->
-                <var name="navtype">slides</var> <!-- Sliding type of thumbnails (slides/thumbs) -->
-                <var name="transition">
-                    <var name="effect">slide</var> <!-- Sets transition effect for slides changing (slide/crossfade/dissolve) -->
-                    <var name="duration">500</var> <!-- Sets transition duration in ms -->
-                </var>
-            </var>
-        </var>
+        <!--<var name="carousel">-->
+            <!--<var name="nav">dots</var> &lt;!&ndash; Gallery navigation style (false/thumbs/dots) &ndash;&gt;-->
+            <!--<var name="loop">true</var> &lt;!&ndash; Gallery navigation loop (true/false) &ndash;&gt;-->
+            <!--<var name="keyboard">false</var> &lt;!&ndash; Turn on/off keyboard arrows navigation (true/false) &ndash;&gt;-->
+            <!--<var name="arrows">true</var> &lt;!&ndash; Turn on/off arrows on the sides preview (true/false) &ndash;&gt;-->
+            <!--<var name="caption">true</var> &lt;!&ndash; Display alt text as image title (true/false) &ndash;&gt;-->
+            <!--<var name="allowfullscreen">false</var> &lt;!&ndash; Turn on/off fullscreen (true/false) &ndash;&gt;-->
+            <!--<var name="navdir">horizontal</var> &lt;!&ndash; Sliding direction of thumbnails (horizontal/vertical) &ndash;&gt;-->
+            <!--<var name="navarrows">true</var> &lt;!&ndash; Turn on/off on the thumbs navigation sides arrows(true/false) &ndash;&gt;-->
+            <!--<var name="navtype">slides</var> &lt;!&ndash; Sliding type of thumbnails (slides/thumbs) &ndash;&gt;-->
+            <!--<var name="transition">-->
+                <!--<var name="effect">slide</var> &lt;!&ndash; Sets transition effect for slides changing (slide/crossfade/dissolve) &ndash;&gt;-->
+                <!--<var name="duration">500</var> &lt;!&ndash; Sets transition duration in ms &ndash;&gt;-->
+            <!--</var>-->
+            <!--<var name="fullscreen">-->
+                <!--<var name="nav">thumbs</var> &lt;!&ndash; Fullscreen navigation style (false/thumbs/dots) &ndash;&gt;-->
+                <!--<var name="loop">true</var> &lt;!&ndash; Fullscreen navigation loop (true/false/null) &ndash;&gt;-->
+                <!--<var name="arrows">true</var> &lt;!&ndash; Turn on/off arrows on the sides preview in fullscreen (true/false/null) &ndash;&gt;-->
+                <!--<var name="caption">true</var> &lt;!&ndash; Display alt text as image title in fullscreen(true/false) &ndash;&gt;-->
+                <!--<var name="navdir">horizontal</var> &lt;!&ndash;Sliding direction of thumbnails in fullscreen(horizontal/vertical)  &ndash;&gt;-->
+                <!--<var name="navarrows">false</var> &lt;!&ndash; Turn on/off on the thumbs navigation sides arrows(true/false) &ndash;&gt;-->
+                <!--<var name="navtype">slides</var> &lt;!&ndash; Sliding type of thumbnails (slides/thumbs) &ndash;&gt;-->
+                <!--<var name="transition">-->
+                    <!--<var name="effect">slide</var> &lt;!&ndash; Sets transition effect for slides changing (slide/crossfade/dissolve) &ndash;&gt;-->
+                    <!--<var name="duration">500</var> &lt;!&ndash; Sets transition duration in ms &ndash;&gt;-->
+                <!--</var>-->
+            <!--</var>-->
+        <!--</var>-->
 
         <var name="magnifier">
             <var name="fullscreenzoom">20</var>  <!-- Zoom for fullscreen (integer)-->
