@@ -7,20 +7,23 @@ define ([
     $.widget("ptashka.carousel", {
 
         conf: {
-            sliderPause: 3000
+            sliderPause: 5000,
+            breakpoint: 768
         },
 
         options: {
-            "nav": "dots",
-            "maxheight": "100",
-            "loop": true
+            "nav"               : "dots",
+            "maxheight"         : "100",
+            "transitionduration": 1000,
+            "loop"              : true
         },
 
         fullscreen: {},
 
+        breakpoints: {},
+
         _create: function () {
-            //var timer = this._autoSlide();
-            var gallery = this._initGallery();
+            var timer = this._autoSlide();
         },
 
         /**
@@ -43,7 +46,6 @@ define ([
             $.each(slideList, function (index, slide) {
                 data.push({html: slide.outerHTML});
             });
-            console.log(data);
             return data;
         },
 
@@ -74,7 +76,23 @@ define ([
 
         _stopSlide: function (timer) {
             clearTimeout(timer);
-        }
+        },
+        
+        // _checkPageWidth: function () {
+        //     var fotoramaActive = $('.fotorama__stage__frame.fotorama__active'),
+        //         windowWidth = $(window).width(),
+        //         fotoramaWidth = fotoramaActive.width(),
+        //         nextSlide = fotoramaActive.next(),
+        //         prevSlide = fotoramaActive.prev(),
+        //         fotoramaLeft = fotoramaActive.position().left;
+        //     console.log(nextSlide);
+        //
+        //     if (windowWidth >= this.conf.breakpoint ) {
+        //         fotoramaActive.width(fotoramaWidth/2);
+        //         nextSlide.width(fotoramaActive.width());
+        //         prevSlide.width(fotoramaActive.width());
+        //     }
+        // }
     });
 
     return $.ptashka.carousel;
