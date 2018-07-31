@@ -106,6 +106,10 @@ class CurrentCategory extends \Magento\Framework\View\Element\Template
     public function getCategoryUrl()
     {
         $category = $this->getCurrentCategory();
+
+        if ($category === null) {
+            return null;
+        }
         $url = $category->getUrl();
         return $url;
     }

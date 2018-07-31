@@ -2,8 +2,9 @@
 /** @var \Stanislavz\CurrentCategory\Block\CurrentCategory $block */
 $categoryData = $block->getCategoryNames();
 $categoryUrl = $block->getCategoryUrl();
-if ($categoryData === null) {
+if ($categoryData === null && $categoryUrl === null) {
     $categoryData = '';
+    $categoryUrl = '';
 }
 ?>
 <div class="test-name"><a href="<?= $categoryUrl; ?>"><?= $categoryData; ?></a></div>
