@@ -5,14 +5,10 @@ namespace Stanislavz\CurrentCategory\Block;
 use \Magento\Catalog\Model\Category;
 use \Magento\Framework\Registry;
 use \Magento\Catalog\Model\CategoryFactory;
-use \Magento\Framework\App\Request\Http;
+use \Stanislavz\CurrentCategory\LogginedUserCheck;
 
 class CurrentCategory extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * @var Http
-     */
-    private $request;
     /**
      * @var Registry
      */
@@ -23,25 +19,28 @@ class CurrentCategory extends \Magento\Framework\View\Element\Template
      */
     private $categoryFactory;
 
+    private $logginedUserCheck;
+
     /**
      * CurrentCategory constructor.
      * @param Registry $registry
      * @param CategoryFactory $categoryFactory
+     * @param LogginedUserCheck $logginedUserCheck
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
     public function __construct(
-        Http $request,
         Registry $registry,
         CategoryFactory $categoryFactory,
+        LogginedUserCheck $logginedUserCheck,
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
-        $this->request = $request;
         $this->registry = $registry;
         $this->categoryFactory = $categoryFactory;
+        $this->logginedUserCheck = $logginedUserCheck;
     }
 
     /**
@@ -80,8 +79,7 @@ class CurrentCategory extends \Magento\Framework\View\Element\Template
     {
         $categoryId = $id;
         $category = $this->categoryFactory->create()->load($categoryId);
-        $categoryName = $category->getName();
-        return $categoryName;
+        return $category->getName();
     }
 
     private function getCurrentCategory()
@@ -99,10 +97,12 @@ class CurrentCategory extends \Magento\Framework\View\Element\Template
         if ($category === null) {
             return null;
         }
-        $paths = $category->getPathIds();
-        return $paths;
+        return $category->getPathIds();
     }
 
+    /**
+     * @return mixed
+     */
     public function getCategoryUrl()
     {
         $category = $this->getCurrentCategory();
@@ -110,7 +110,19 @@ class CurrentCategory extends \Magento\Framework\View\Element\Template
         if ($category === null) {
             return null;
         }
-        $url = $category->getUrl();
-        return $url;
+        return $category->getUrl();
+    }
+
+    /**
+     * @return bool
+     */
+    public function testUser(): bool
+    {
+        return $this->logginedUserCheck->checkUser();
+    }
+
+    public function getCustomerId()
+    {
+        return $this->logginedUserCheck->getCustomerId();
     }
 }
