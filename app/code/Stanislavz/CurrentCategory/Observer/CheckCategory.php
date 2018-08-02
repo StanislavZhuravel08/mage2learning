@@ -1,36 +1,49 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stanislavz
- * Date: 01.08.18
- * Time: 18:13
- */
 
 namespace Stanislavz\CurrentCategory\Observer;
 
-use Magento\Framework\Event\Observer;
-use Magento\Framework\Event\ObserverInterface;
+use \Magento\Framework\Event\Observer;
 
-class CheckCategory implements ObserverInterface
+class CheckCategory implements \Magento\Framework\Event\ObserverInterface
 {
     private $currentCategory;
-
-    private $logginedUserCheck;
 
     private $recentCategory;
 
     public function __construct(
-        \Stanislavz\CurrentCategory\Block\CurrentCategory $currentCategory,
-        \Stanislavz\CurrentCategory\LogginedUserCheck $logginedUserCheck,
+        \Stanislavz\CurrentCategory\Block\CurrentCategoryModule $currentCategory,
         \Stanislavz\CurrentCategory\Model\RecentCategoryFactory $recentCategory
     ) {
         $this->currentCategory = $currentCategory;
-        $this->logginedUserCheck = $logginedUserCheck;
         $this->recentCategory = $recentCategory;
+    }
+
+    /**
+     * @return array
+     */
+    private function getPageData(): array
+    {
+        $data = [
+            'user_id'            => $this->currentCategory->getCustomerId(),
+            'category_id'        => $this->currentCategory->getCurrentCategory()->getId(),
+            'category_url'       => $this->currentCategory->getCurrentCategory()->getUrl(),
+            'category_full_path' => $this->currentCategory->getCurrentCategory()->getPath()
+        ];
+
+        return $data;
     }
 
     public function execute(Observer $observer)
     {
-        // TODO: Implement execute() method.
+        $conditionCategory = $this->currentCategory->getCurrentCategory()->getId();
+        $conditionCustomer = $this->currentCategory->isCustomerLoggedIn();
+
+        if ($conditionCategory && $conditionCustomer) {
+            $data = $this->getPageData();
+            $recentCategory = $this->recentCategory->create();
+            $connection = $recentCategory->getResource()->getConnection();
+            $tableName = $recentCategory->getResource()->getTable('recently_visited_categories');
+            $connection->insert($tableName, $data);
+        }
     }
 }

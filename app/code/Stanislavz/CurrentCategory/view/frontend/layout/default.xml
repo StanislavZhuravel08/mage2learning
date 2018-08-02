@@ -3,7 +3,7 @@
     <body>
         <referenceContainer name="page.bottom.container">
             <container name="recentCategory" htmlClass="recent-category" htmlTag="div" after="-">
-                <block class="Stanislavz\CurrentCategory\Block\CurrentCategory" name="currentcat"
+                <block class="Stanislavz\CurrentCategory\Block\CurrentCategoryModule" name="currentcategory"
                        template="Stanislavz_CurrentCategory::current_category.phtml" before="-"
                 />
             </container>

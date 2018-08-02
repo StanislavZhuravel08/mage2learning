@@ -1,13 +1,9 @@
 <?php
-/** @var \Stanislavz\CurrentCategory\Block\CurrentCategory $block */
-$categoryData = $block->getCategoryNames();
-$categoryUrl = $block->getCategoryUrl();
-if ($categoryData === null && $categoryUrl === null) {
-    $categoryData = '';
-    $categoryUrl = '';
-}
+/** @var \Stanislavz\CurrentCategory\Block\CurrentCategoryModule $block */
+if ($category = $block->getCurrentCategory()) :
+    $categoryData = $block->getCurrentCategory()->getPath();
 ?>
 <div class="test-name">
-    <a href="<?= $categoryUrl; ?>"><?= $categoryData; ?></a>
+    <a href="<?= $category->getUrl(); ?>"><?= $categoryData; ?></a>
 </div>
-
+<?php endif; ?>
