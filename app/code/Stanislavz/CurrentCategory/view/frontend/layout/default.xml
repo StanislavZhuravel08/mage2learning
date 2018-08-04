@@ -2,8 +2,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="1column">
     <body>
         <referenceContainer name="page.bottom.container">
-            <container name="recentCategory" htmlClass="recent-category" htmlTag="div" after="-">
-                <block class="Stanislavz\CurrentCategory\Block\CurrentCategoryModule" name="currentcategory"
+            <container name="recentCategory" htmlClass="custom-recent-categories" htmlTag="div" after="-">
+                <block class="Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories" name="currentcategory"
                        template="Stanislavz_CurrentCategory::current_category.phtml" before="-"
                 />
             </container>

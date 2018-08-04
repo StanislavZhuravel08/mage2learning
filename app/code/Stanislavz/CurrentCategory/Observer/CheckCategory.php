@@ -24,7 +24,7 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
     private function getPageData(): array
     {
         $data = [
-            'user_id'            => $this->currentCategory->getCustomerId(),
+            'customer_id'        => $this->currentCategory->getCustomerId(),
             'category_id'        => $this->currentCategory->getCurrentCategory()->getId(),
             'category_url'       => $this->currentCategory->getCurrentCategory()->getUrl(),
             'category_full_path' => $this->currentCategory->getCurrentCategory()->getPath()
@@ -36,6 +36,7 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
     public function execute(Observer $observer)
     {
         $conditionCategory = $this->currentCategory->getCurrentCategory()->getId();
+        $conditionCategory = ($conditionCategory > 2) ? $conditionCategory : 0;
         $conditionCustomer = $this->currentCategory->isCustomerLoggedIn();
 
         if ($conditionCategory && $conditionCustomer) {

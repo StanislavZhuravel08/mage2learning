@@ -11,8 +11,6 @@ class CurrentCategoryModule extends \Magento\Framework\View\Element\Template
      */
     private $layerResolver;
 
-    private $categoryRepository;
-
     /**
      * @var \Magento\Customer\Model\Session $customerSession
      */
@@ -21,21 +19,18 @@ class CurrentCategoryModule extends \Magento\Framework\View\Element\Template
     /**
      * CurrentCategoryModule constructor.
      * @param \Magento\Catalog\Model\Layer\Resolver $layerResolver
-     * @param \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
     public function __construct(
         \Magento\Catalog\Model\Layer\Resolver $layerResolver,
-        \Magento\Catalog\Api\CategoryRepositoryInterface $categoryRepository,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->customerSession = $customerSession;
-        $this->categoryRepository = $categoryRepository;
         $this->layerResolver = $layerResolver;
     }
 
@@ -46,15 +41,6 @@ class CurrentCategoryModule extends \Magento\Framework\View\Element\Template
     {
         return $this->layerResolver->get()->getCurrentCategory();
     }
-
-//    /**
-//     * @return \Magento\Catalog\Api\Data\CategoryInterface
-//     * @throws \Magento\Framework\Exception\NoSuchEntityException
-//     */
-//    public function getCategoryRepository()
-//    {
-//        return $this->categoryRepository->get(21);
-//    }
 
     /**
      * @return bool
@@ -69,6 +55,7 @@ class CurrentCategoryModule extends \Magento\Framework\View\Element\Template
      */
     public function getCustomerId(): int
     {
-        return $this->isCustomerLoggedIn() ? (int) $this->customerSession->getCustomer()->getId() : 0;
+        $session = $this->customerSession;
+        return $this->isCustomerLoggedIn() ? (int) $session->getCustomer()->getId() : 0;
     }
 }

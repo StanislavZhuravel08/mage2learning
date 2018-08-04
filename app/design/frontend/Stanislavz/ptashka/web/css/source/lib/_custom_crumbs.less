@@ -1,0 +1,20 @@
+& when (@media-common = true) {
+    ul.custom-category-crumbs {
+        list-style: none;
+        padding-left: 0;
+        ul {
+            padding-left: 0;
+        }
+        li {
+            display: inline-block;
+
+            &:before {
+                content: '>';
+            }
+
+            &:first-child:before {
+                content: '';
+            }
+        }
+    }
+}

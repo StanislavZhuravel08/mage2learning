@@ -7,6 +7,9 @@ use \Magento\Framework\Setup\InstallSchemaInterface;
 class InstallSchema implements InstallSchemaInterface
 {
     const TABLE_NAME = 'recently_visited_categories';
+    const USER_ENTITY_TABLE = 'customer_entity';
+    const ID_COLUMN = 'entity_id';
+    const CATEGORY_ENTITY_TABLE = 'catalog_category_entity';
 
     /**
      * @param \Magento\Framework\Setup\SchemaSetupInterface $setup
@@ -27,7 +30,7 @@ class InstallSchema implements InstallSchemaInterface
         )->addColumn(
             'visit_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
+            10,
             [   'identity' => true,
                 'nullable' => false,
                 'primary'  => true,
@@ -35,23 +38,23 @@ class InstallSchema implements InstallSchemaInterface
             ],
             'Visit Id'
         )->addColumn(
-            'user_id',
+            'customer_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
+            10,
             [   'identity' => false,
                 'nullable' => false,
                 'primary'  => false,
-                'unsigned' => false,
+                'unsigned' => true,
             ],
-            'User Id'
+            'Customer Id'
         )->addColumn(
             'category_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
+            10,
             [   'identity' => false,
                 'nullable' => false,
                 'primary'  => false,
-                'unsigned' => false,
+                'unsigned' => true,
             ],
             'Category Id'
         )->addColumn(
@@ -66,6 +69,14 @@ class InstallSchema implements InstallSchemaInterface
             255,
             [],
             'Category Full Path'
+        )->addColumn(
+            'created_at',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            null,
+            [   'nullable' => false,
+                'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT
+            ],
+            'Created At'
         )->setComment('Recently Visited Categories');
 
         $connection->createTable($table);
@@ -74,11 +85,37 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getTable(self::TABLE_NAME),
             $setup->getIdxName(
                 $installer->getTable(self::TABLE_NAME),
-                ['visit_id', 'user_id', 'category_id'],
+                ['visit_id', 'customer_id', 'category_id'],
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX
             ),
-            ['visit_id', 'user_id', 'category_id'],
+            ['visit_id', 'customer_id', 'category_id'],
             \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX
+        );
+
+        $connection->addForeignKey(
+            $installer->getFkName(
+                $installer->getTable(self::TABLE_NAME),
+                'customer_id',
+                $installer->getTable(self::USER_ENTITY_TABLE),
+                self::ID_COLUMN
+            ),
+            $installer->getTable(self::TABLE_NAME),
+            'customer_id',
+            $installer->getTable(self::USER_ENTITY_TABLE),
+            self::ID_COLUMN
+        );
+
+        $connection->addForeignKey(
+            $installer->getFkName(
+                $installer->getTable(self::TABLE_NAME),
+                'category_id',
+                $installer->getTable(self::CATEGORY_ENTITY_TABLE),
+                self::ID_COLUMN
+            ),
+            $installer->getTable(self::TABLE_NAME),
+            'category_id',
+            $installer->getTable(self::CATEGORY_ENTITY_TABLE),
+            self::ID_COLUMN
         );
 
         $installer->endSetup();

@@ -1,9 +1,21 @@
 <?php
-/** @var \Stanislavz\CurrentCategory\Block\CurrentCategoryModule $block */
-if ($category = $block->getCurrentCategory()) :
-    $categoryData = $block->getCurrentCategory()->getPath();
-?>
-<div class="test-name">
-    <a href="<?= $category->getUrl(); ?>"><?= $categoryData; ?></a>
-</div>
+/**
+ * @var \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories $block
+ */
+$categories = $block->getRecentlyVisitedCategories();
+if (isset($categories)) :?>
+<ul>
+    <?php foreach ($categories as $index => $categoryId) :
+        $parentCategories = $block->getCategory($categoryId['category_id'])->getParentCategories(); ?>
+    <li>
+        <ul class="custom-category-crumbs">
+            <?php foreach ($parentCategories as $category) :?>
+                <li>
+                    <a href="<?= $category->getUrl(); ?>"><?= $category->getName(); ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </li>
+    <?php endforeach; ?>
+</ul>
 <?php endif; ?>
