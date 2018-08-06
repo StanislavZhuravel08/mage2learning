@@ -1,19 +1,21 @@
 & when (@media-common = true) {
-    ul.custom-category-crumbs {
+    ul.custom-category-crumb-list {
         list-style: none;
         padding-left: 0;
         ul {
             padding-left: 0;
-        }
-        li {
-            display: inline-block;
+            list-style: none;
 
-            &:before {
-                content: '>';
-            }
+            li {
+                display: inline-block;
 
-            &:first-child:before {
-                content: '';
+                &:before {
+                    content: '>';
+                }
+
+                &:first-child:before {
+                    content: '';
+                }
             }
         }
     }

@@ -4,7 +4,7 @@
  */
 $categories = $block->getRecentlyVisitedCategories();
 if (isset($categories)) :?>
-<ul>
+<ul class="custom-category-crumb-list">
     <?php foreach ($categories as $index => $categoryId) :
         $parentCategories = $block->getCategory($categoryId['category_id'])->getParentCategories(); ?>
     <li>
