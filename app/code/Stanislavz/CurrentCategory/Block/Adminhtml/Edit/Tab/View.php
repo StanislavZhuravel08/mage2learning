@@ -6,9 +6,7 @@ use Magento\Customer\Controller\RegistryConstants;
 use Magento\Framework\View\Element\Template;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
 
-class RecentCategoriesLinks
-    extends \Magento\Framework\View\Element\Template
-    implements \Magento\Ui\Component\Layout\Tabs\TabInterface
+class View extends \Magento\Backend\Block\Template implements TabInterface
 {
     private $coreRegistry;
 
@@ -66,7 +64,7 @@ class RecentCategoriesLinks
      */
     public function getTabClass(): string
     {
-        return '';
+        return 'recent-category';
     }
 
     /**
@@ -76,7 +74,7 @@ class RecentCategoriesLinks
      */
     public function getTabUrl(): string
     {
-        return $this->getUrl('recent_categories', ['_current' => true]);
+        return $this->getUrl('');
     }
 
     /**
@@ -86,6 +84,6 @@ class RecentCategoriesLinks
      */
     public function isAjaxLoaded(): bool
     {
-        return true;
+        return false;
     }
 }
