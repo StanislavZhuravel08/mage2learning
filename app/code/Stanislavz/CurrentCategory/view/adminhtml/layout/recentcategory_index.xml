@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey" />
+    <update handle="recentcategory_grid_block" />
+    <body>
+        <referenceBlock name="recentcategory.grid.wrapper">
+            <block class="Stanislavz\CurrentCategory\Block\Adminhtml\Recentcategory" name="stanislavz_recentcategory.grid.container"/>
+        </referenceBlock>
+    </body>
+</page>

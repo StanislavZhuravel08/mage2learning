@@ -1,30 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stanislavz
- * Date: 03.08.18
- * Time: 17:25
- */
 
 namespace Stanislavz\CurrentCategory\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Catalog\Model\Category;
+use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 
 class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
 {
-
     const XML_PATH_CATEGORY_QUANTITY = 'customer/recent_category/recent_category_quantity';
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    private $scopeConfig;
-
-    /**
-     * @var \Magento\Catalog\Model\CategoryRepository
-     */
-    private $categoryRepository;
 
     /**
      * @var CurrentCategoryModule
@@ -32,23 +17,26 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     private $pagePreloader;
 
     /**
-     * @var \Stanislavz\CurrentCategory\Model\RecentCategoryFactory
+     * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
      */
-    private $model;
+    private $collectionFactory;
 
+    /**
+     * RecentlyVisitedCategories constructor.
+     * @param CurrentCategoryModule $pagePreloader
+     * @param \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $collectionFactory
+     * @param Template\Context $context
+     * @param array $data
+     */
     public function __construct(
         CurrentCategoryModule $pagePreloader,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Stanislavz\CurrentCategory\Model\RecentCategoryFactory $model,
-        \Magento\Catalog\Model\CategoryRepository $categoryRepository,
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $collectionFactory,
         Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->pagePreloader = $pagePreloader;
-        $this->scopeConfig = $scopeConfig;
-        $this->categoryRepository= $categoryRepository;
-        $this->model = $model;
+        $this->collectionFactory = $collectionFactory;
     }
 
     /**
@@ -64,29 +52,55 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
      */
     private function getLimit(): int
     {
-        $limit = $this->scopeConfig->getValue(self::XML_PATH_CATEGORY_QUANTITY, ScopeInterface::SCOPE_STORES);
+        $limit = $this->_scopeConfig->getValue(self::XML_PATH_CATEGORY_QUANTITY, ScopeInterface::SCOPE_STORES);
         return (int) $limit;
     }
 
     /**
-     * @param $categoryId
-     * @return \Magento\Catalog\Api\Data\CategoryInterface|mixed
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return CategoryCollection
      */
-    public function getCategory($categoryId)
+    public function getRecentlyVisitedCategories(): CategoryCollection
     {
-        return $this->categoryRepository->get($categoryId);
-    }
+        /** @var CategoryCollection $categoriesCollection */
+        $categoriesCollection = $this->collectionFactory->create();
+        $categoriesCollection->getSelect()
+            ->join(
+                ['rvc' => $categoriesCollection->getTable('recently_visited_categories')],
+                'e.entity_id=rvc.category_id',
+                []
+            )
+            ->where(
+                'rvc.customer_id=?', $this->getCustomerId()
+            );
+        $categoriesCollection->setPageSize($this->getLimit())
+            ->addNameToResult()
+            ->addOrder('rvc.created_at');
 
-    public function getRecentlyVisitedCategories()
-    {
-        $model = $this->model->create();
-        $connection = $model->getResource()->getConnection();
-        $tableName = $model->getResource()->getTable($model::MAIN_TABLE);
-        $select = $connection->select()->from($tableName, 'category_id')
-                                        ->where('customer_id = :customer_id')
-                                        ->limit($this->getLimit());
-        $result = $connection->fetchAll($select, [':customer_id' => $this->getCustomerId()]);
-        return $result;
+        $parentCategories = [];
+
+        /** @var Category $category */
+        foreach ($categoriesCollection as $category) {
+            $parentCategories = array_merge($parentCategories, $category->getParentIds());
+        }
+
+        /** @var CategoryCollection $parentCategoriesCollection */
+        $parentCategoriesCollection = $this->collectionFactory->create();
+        $parentCategoriesCollection->addFieldToFilter('entity_id', ['in' => array_unique($parentCategories)])
+            ->addNameToResult()
+            ->addFieldToFilter('level', ['qt' => 2]);
+
+        foreach ($categoriesCollection as $category) {
+            $parentCategories = [];
+
+            foreach ($category->getParentIds() as $parentCategoryId) {
+                if ($parentCategory = $parentCategoriesCollection->getItemById($parentCategoryId)) {
+                    $parentCategories[] = $parentCategory;
+                }
+            }
+
+            $category->setParentCategoriesList($parentCategories);
+        }
+
+        return $categoriesCollection;
     }
 }

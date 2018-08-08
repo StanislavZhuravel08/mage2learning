@@ -1,19 +1,21 @@
 <?php
-/**
- * @var \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories $block
- */
-$categories = $block->getRecentlyVisitedCategories();
-if (isset($categories)) :?>
+/** @var \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories $block */
+if ($categoriesCollection = $block->getRecentlyVisitedCategories()) :
+?>
 <ul class="custom-category-crumb-list">
-    <?php foreach ($categories as $index => $categoryId) :
-        $parentCategories = $block->getCategory($categoryId['category_id'])->getParentCategories(); ?>
+    <?php foreach ($categoriesCollection as $category) : ?>
     <li>
         <ul class="custom-category-crumbs">
-            <?php foreach ($parentCategories as $category) :?>
+            <?php
+                foreach ($category->getParentCategoriesList() as $parentCategory) :
+            ?>
                 <li>
-                    <a href="<?= $category->getUrl(); ?>"><?= $category->getName(); ?></a>
+                    <a href="<?= $parentCategory->getUrl(); ?>"><?= $parentCategory->getName(); ?></a>
                 </li>
             <?php endforeach; ?>
+            <li>
+                <a href="<?= $category->getUrl(); ?>"><?= $category->getName(); ?></a>
+            </li>
         </ul>
     </li>
     <?php endforeach; ?>

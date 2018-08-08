@@ -1,13 +1,22 @@
 <?php
 
-namespace Stanislavz\CurrentCategory\Model\ResourceModel\Collection;
+namespace Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
-    private $idFieldName = 'visit_id';
-    private $eventPrefix = 'recently_visited_categories';
-    private $eventObject = 'recentCategory_collection';
+    /**
+     * @inheritdoc
+     */
+    protected $_eventPrefix = 'recently_visited_categories';
 
+    /**
+     * @inheritdoc
+     */
+    protected $_eventObject = 'collection';
+
+    /**
+     * @inheritdoc
+     */
     protected function _construct()
     {
         $this->_init(

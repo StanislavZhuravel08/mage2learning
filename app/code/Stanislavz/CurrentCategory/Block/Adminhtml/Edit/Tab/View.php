@@ -74,7 +74,7 @@ class View extends \Magento\Backend\Block\Template implements TabInterface
      */
     public function getTabUrl(): string
     {
-        return $this->getUrl('');
+        return $this->getUrl('recentcategory/*/index', ['_current' => true]);
     }
 
     /**
