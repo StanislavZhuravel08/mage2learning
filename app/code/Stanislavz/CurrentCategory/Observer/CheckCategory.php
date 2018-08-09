@@ -2,7 +2,8 @@
 
 namespace Stanislavz\CurrentCategory\Observer;
 
-use \Magento\Framework\Event\Observer;
+use Magento\Framework\Event\Observer;
+use Stanislavz\CurrentCategory\Model\RecentCategory;
 
 class CheckCategory implements \Magento\Framework\Event\ObserverInterface
 {
@@ -24,27 +25,33 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
     private function getPageData(): array
     {
         $data = [
-            'customer_id'        => $this->currentCategory->getCustomerId(),
-            'category_id'        => $this->currentCategory->getCurrentCategory()->getId(),
-            'category_url'       => $this->currentCategory->getCurrentCategory()->getUrl(),
-            'category_full_path' => $this->currentCategory->getCurrentCategory()->getPath()
+            'customer_id' => $this->currentCategory->getCustomerId(),
+            'category_id' => $this->currentCategory->getCurrentCategory()->getId(),
         ];
 
         return $data;
     }
 
+    /**
+     * @param Observer $observer
+     * @throws \Exception
+     */
     public function execute(Observer $observer)
     {
-        $conditionCategory = $this->currentCategory->getCurrentCategory()->getId();
-        $conditionCategory = ($conditionCategory > 2) ? $conditionCategory : 0;
-        $conditionCustomer = $this->currentCategory->isCustomerLoggedIn();
+        $conditionCategoryId = $this->currentCategory->getCurrentCategory()->getId();
+        $conditionCategoryId = ($conditionCategoryId > 2) ? $conditionCategoryId : 0;
+        $conditionCustomerIsLoggined = $this->currentCategory->isCustomerLoggedIn();
 
-        if ($conditionCategory && $conditionCustomer) {
+        if ($conditionCategoryId && $conditionCustomerIsLoggined) {
             $data = $this->getPageData();
+            /** @var RecentCategory $recentCategory */
             $recentCategory = $this->recentCategory->create();
-            $connection = $recentCategory->getResource()->getConnection();
-            $tableName = $recentCategory->getResource()->getTable('recently_visited_categories');
-            $connection->insert($tableName, $data);
+            $collection = $recentCategory->getCollection();
+            $collection->addFieldToFilter('category_id', $conditionCategoryId);
+
+            $recentCategory = $collection->getFirstItem();
+            $recentCategory->addData($data)
+                ->save();
         }
     }
 }

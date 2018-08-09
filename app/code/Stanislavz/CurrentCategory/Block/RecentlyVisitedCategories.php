@@ -72,8 +72,11 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
             ->where(
                 'rvc.customer_id=?', $this->getCustomerId()
             );
-        $categoriesCollection->setPageSize($this->getLimit())
+        $categoriesCollection
+            //->setPageSize($this->getLimit())
+            //->setStore($this->_storeManager->getStore())
             ->addNameToResult()
+//            ->addUrlRewriteToResult()
             ->addOrder('rvc.created_at');
 
         $parentCategories = [];
@@ -86,8 +89,10 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
         /** @var CategoryCollection $parentCategoriesCollection */
         $parentCategoriesCollection = $this->collectionFactory->create();
         $parentCategoriesCollection->addFieldToFilter('entity_id', ['in' => array_unique($parentCategories)])
+//            ->setStore($this->_storeManager->getStore())
             ->addNameToResult()
             ->addFieldToFilter('level', ['qt' => 2]);
+//            ->addUrlRewriteToResult();
 
         foreach ($categoriesCollection as $category) {
             $parentCategories = [];

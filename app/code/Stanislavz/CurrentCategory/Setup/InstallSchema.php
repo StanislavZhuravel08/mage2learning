@@ -57,28 +57,28 @@ class InstallSchema implements InstallSchemaInterface
                 'unsigned' => true,
             ],
             'Category Id'
-//        )->addColumn(
-//            'category_name',
-//            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-//            255,
-//            [   'identity' => false,
-//                'nullable' => false,
-//                'primary'  => false,
-//                'unsigned' => true,
-//            ],
-//            'Category Name'
-//        )->addColumn(
-//            'category_url',
-//            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-//            255,
-//            [],
-//            'Category URL Key'
-//        )->addColumn(
-//            'category_full_path',
-//            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-//            255,
-//            [],
-//            'Category Full Path'
+        )->addColumn(
+            'category_name',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            [   'identity' => false,
+                'nullable' => false,
+                'primary'  => false,
+                'unsigned' => true,
+            ],
+            'Category Name'
+        )->addColumn(
+            'category_url',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            [],
+            'Category URL Key'
+        )->addColumn(
+            'category_full_path',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            [],
+            'Category Full Path'
         )->addColumn(
             'created_at',
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
