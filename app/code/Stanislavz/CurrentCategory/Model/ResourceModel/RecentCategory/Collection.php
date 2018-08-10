@@ -24,4 +24,12 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             \Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory::class
         );
     }
+
+    /**
+     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection|void
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+    }
 }

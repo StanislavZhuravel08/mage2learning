@@ -58,6 +58,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
 
     /**
      * @return CategoryCollection
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getRecentlyVisitedCategories(): CategoryCollection
     {
@@ -66,18 +67,18 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
         $categoriesCollection->getSelect()
             ->join(
                 ['rvc' => $categoriesCollection->getTable('recently_visited_categories')],
-                'e.entity_id=rvc.category_id',
+                'e.entity_id = rvc.category_id',
                 []
             )
             ->where(
-                'rvc.customer_id=?', $this->getCustomerId()
-            );
-        $categoriesCollection
-            //->setPageSize($this->getLimit())
-            //->setStore($this->_storeManager->getStore())
-            ->addNameToResult()
-//            ->addUrlRewriteToResult()
-            ->addOrder('rvc.created_at');
+                'rvc.customer_id=?',
+                $this->getCustomerId()
+            )
+            ->limit($this->getLimit())
+            ->order('rvc.updated_at');
+        $categoriesCollection->setStore($this->_storeManager->getStore())
+            ->addNameToResult();
+            //->addUrlRewriteToResult();
 
         $parentCategories = [];
 
@@ -88,10 +89,11 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
 
         /** @var CategoryCollection $parentCategoriesCollection */
         $parentCategoriesCollection = $this->collectionFactory->create();
-        $parentCategoriesCollection->addFieldToFilter('entity_id', ['in' => array_unique($parentCategories)])
-//            ->setStore($this->_storeManager->getStore())
+        $parentCategoriesCollection
+            ->addFieldToFilter('entity_id', ['in' => array_unique($parentCategories)])
+            ->setStore($this->_storeManager->getStore())
             ->addNameToResult()
-            ->addFieldToFilter('level', ['qt' => 2]);
+            ->addFieldToFilter('level', ['gt' => 1]);
 //            ->addUrlRewriteToResult();
 
         foreach ($categoriesCollection as $category) {

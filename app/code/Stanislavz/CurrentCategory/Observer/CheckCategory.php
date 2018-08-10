@@ -40,14 +40,15 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
     {
         $conditionCategoryId = $this->currentCategory->getCurrentCategory()->getId();
         $conditionCategoryId = ($conditionCategoryId > 2) ? $conditionCategoryId : 0;
-        $conditionCustomerIsLoggined = $this->currentCategory->isCustomerLoggedIn();
+        $conditionCustomerIsLoggedIn = $this->currentCategory->isCustomerLoggedIn();
 
-        if ($conditionCategoryId && $conditionCustomerIsLoggined) {
+        if ($conditionCategoryId && $conditionCustomerIsLoggedIn) {
             $data = $this->getPageData();
             /** @var RecentCategory $recentCategory */
             $recentCategory = $this->recentCategory->create();
             $collection = $recentCategory->getCollection();
-            $collection->addFieldToFilter('category_id', $conditionCategoryId);
+            $collection->addFieldToFilter('category_id', $conditionCategoryId)
+                ->addFieldToFilter('customer_id', $conditionCustomerIsLoggedIn);
 
             $recentCategory = $collection->getFirstItem();
             $recentCategory->addData($data)

@@ -7,7 +7,7 @@ if ($categoriesCollection = $block->getRecentlyVisitedCategories()) :
     <li>
         <ul class="custom-category-crumbs">
             <?php
-                foreach ($category->getParentCategoriesList() as $parentCategory) :
+            foreach ($category->getParentCategoriesList() as $parentCategory) :
             ?>
                 <li>
                     <a href="<?= $parentCategory->getUrl(); ?>"><?= $parentCategory->getName(); ?></a>
