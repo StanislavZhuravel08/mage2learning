@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="customer" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
-            <resource>Magento_Customer::config_customer</resource>
+            <resource>Magento_Catalog::config_customer</resource>
             <group id="recent_category" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Recent Categories Quantity</label>
                 <field id="recent_category_quantity" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">

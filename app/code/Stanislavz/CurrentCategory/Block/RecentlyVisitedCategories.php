@@ -6,6 +6,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
+use Stanislavz\CurrentCategory\Model\ResourceModel\Category\Collection as NonCacheableCategoryCollection;
 
 class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
 {
@@ -19,24 +20,33 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
      */
-    private $collectionFactory;
+    private $categoryCollectionFactory;
+
+    /**
+     * @var \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory
+     */
+    private $nonCacheableCategoryCollectionFactory;
 
     /**
      * RecentlyVisitedCategories constructor.
      * @param CurrentCategoryModule $pagePreloader
-     * @param \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $collectionFactory
+     * @param \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
+     * @param \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory
+     *                                                                 $nonCacheableCategoryCollectionFactory
      * @param Template\Context $context
      * @param array $data
      */
     public function __construct(
         CurrentCategoryModule $pagePreloader,
-        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $collectionFactory,
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
+        \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory $nonCacheableCategoryCollectionFactory,
         Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->pagePreloader = $pagePreloader;
-        $this->collectionFactory = $collectionFactory;
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
+        $this->nonCacheableCategoryCollectionFactory = $nonCacheableCategoryCollectionFactory;
     }
 
     /**
@@ -62,22 +72,12 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
      */
     public function getRecentlyVisitedCategories(): CategoryCollection
     {
-        /** @var CategoryCollection $categoriesCollection */
-        $categoriesCollection = $this->collectionFactory->create();
-        $categoriesCollection->getSelect()
-            ->join(
-                ['rvc' => $categoriesCollection->getTable('recently_visited_categories')],
-                'e.entity_id = rvc.category_id',
-                []
-            )
-            ->where(
-                'rvc.customer_id=?',
-                $this->getCustomerId()
-            )
-            ->limit($this->getLimit())
-            ->order('rvc.updated_at');
-        $categoriesCollection->setStore($this->_storeManager->getStore())
-            ->addNameToResult();
+        /** @var NonCacheableCategoryCollection $categoriesCollection */
+        $categoriesCollection = $this->nonCacheableCategoryCollectionFactory->create();
+        $categoriesCollection->addCustomerFilter($this->getCustomerId())
+            ->addNameToResult()
+            ->getSelect()
+            ->limit($this->getLimit());
             //->addUrlRewriteToResult();
 
         $parentCategories = [];
@@ -87,10 +87,14 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
             $parentCategories = array_merge($parentCategories, $category->getParentIds());
         }
 
+        $parentCategories = array_unique($parentCategories);
+        // optimize cache usage
+        asort($parentCategories);
+
         /** @var CategoryCollection $parentCategoriesCollection */
-        $parentCategoriesCollection = $this->collectionFactory->create();
+        $parentCategoriesCollection = $this->categoryCollectionFactory->create();
         $parentCategoriesCollection
-            ->addFieldToFilter('entity_id', ['in' => array_unique($parentCategories)])
+            ->addFieldToFilter('entity_id', ['in' => $parentCategories])
             ->setStore($this->_storeManager->getStore())
             ->addNameToResult()
             ->addFieldToFilter('level', ['gt' => 1]);

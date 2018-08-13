@@ -8,11 +8,16 @@ use Magento\Framework\Registry;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Data\Collection\AbstractDb;
 
-class RecentCategory extends \Magento\Framework\Model\AbstractModel
+class RecentCategory extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
 {
+    /**
+     * @var DateTimeFactory
+     */
     private $dateFactory;
 
     const MAIN_TABLE = 'recently_visited_categories';
+
+    const CACHE_TAG = 'recently_visited_categories';
 
     /**
      * RecentCategory constructor.
@@ -47,5 +52,13 @@ class RecentCategory extends \Magento\Framework\Model\AbstractModel
     protected function _construct()
     {
         $this->_init(\Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory::class);
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function getIdentities(): array
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 }

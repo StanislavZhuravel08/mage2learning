@@ -3,13 +3,21 @@
 namespace Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab;
 
 use Magento\Customer\Controller\RegistryConstants;
-use Magento\Framework\View\Element\Template;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
 
-class View extends \Magento\Backend\Block\Template implements TabInterface
+class Recent extends \Magento\Backend\Block\Template implements TabInterface
 {
+    /**
+     * @var \Magento\Framework\Registry
+     */
     private $coreRegistry;
 
+    /**
+     * Recent constructor.
+     * @param \Magento\Backend\Block\Template\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param array $data
+     */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Registry $registry,
@@ -74,7 +82,7 @@ class View extends \Magento\Backend\Block\Template implements TabInterface
      */
     public function getTabUrl(): string
     {
-        return $this->getUrl('recentcategory/*/index', ['_current' => true]);
+        return $this->getUrl('recentcategory/*/recent', ['_current' => true]);
     }
 
     /**
@@ -84,6 +92,6 @@ class View extends \Magento\Backend\Block\Template implements TabInterface
      */
     public function isAjaxLoaded(): bool
     {
-        return false;
+        return true;
     }
 }

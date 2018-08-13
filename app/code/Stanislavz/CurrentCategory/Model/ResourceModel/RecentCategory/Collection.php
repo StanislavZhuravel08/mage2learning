@@ -7,29 +7,11 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     /**
      * @inheritdoc
      */
-    protected $_eventPrefix = 'recently_visited_categories';
-
-    /**
-     * @inheritdoc
-     */
-    protected $_eventObject = 'collection';
-
-    /**
-     * @inheritdoc
-     */
     protected function _construct()
     {
         $this->_init(
             \Stanislavz\CurrentCategory\Model\RecentCategory::class,
             \Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory::class
         );
-    }
-
-    /**
-     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection|void
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
     }
 }
