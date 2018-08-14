@@ -2,11 +2,19 @@
 
 namespace Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab;
 
-use Magento\Customer\Controller\RegistryConstants;
+use Magento\Framework\Registry;
+use Magento\Backend\Block\Template\Context;
+use Magento\Ui\Component\Layout\Tabs\TabWrapper;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
+use Magento\Customer\Controller\RegistryConstants;
 
-class Recent extends \Magento\Backend\Block\Template implements TabInterface
+class Recent extends TabWrapper implements TabInterface
 {
+    /**
+     * @var bool
+     */
+    protected $isAjaxLoaded = false;
+
     /**
      * @var \Magento\Framework\Registry
      */
@@ -72,7 +80,7 @@ class Recent extends \Magento\Backend\Block\Template implements TabInterface
      */
     public function getTabClass(): string
     {
-        return 'recent-category';
+        return 'recent';
     }
 
     /**
@@ -82,16 +90,6 @@ class Recent extends \Magento\Backend\Block\Template implements TabInterface
      */
     public function getTabUrl(): string
     {
-        return $this->getUrl('recentcategory/*/recent', ['_current' => true]);
-    }
-
-    /**
-     * Tab should be loaded trough Ajax call
-     *
-     * @return bool
-     */
-    public function isAjaxLoaded(): bool
-    {
-        return true;
+        return $this->getUrl('index/*/recent', ['_current' => true]);
     }
 }

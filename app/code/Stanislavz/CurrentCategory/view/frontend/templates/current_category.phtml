@@ -21,3 +21,19 @@ if ($categoriesCollection = $block->getRecentlyVisitedCategories()) :
     <?php endforeach; ?>
 </ul>
 <?php endif; ?>
+<div id="custom-component" data-bind="scope:'customcomponent'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "#custom-component": {
+            "Magento_Ui/js/core/app": {
+               "components": {
+                    "customcomponent": {
+                        "component": "Stanislavz_CurrentCategory/js/custom-component"
+                    }
+                }
+            }
+        }
+    }
+    </script>
+</div>

@@ -78,7 +78,6 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
             ->addNameToResult()
             ->getSelect()
             ->limit($this->getLimit());
-            //->addUrlRewriteToResult();
 
         $parentCategories = [];
 
@@ -98,7 +97,6 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
             ->setStore($this->_storeManager->getStore())
             ->addNameToResult()
             ->addFieldToFilter('level', ['gt' => 1]);
-//            ->addUrlRewriteToResult();
 
         foreach ($categoriesCollection as $category) {
             $parentCategories = [];
@@ -108,10 +106,8 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
                     $parentCategories[] = $parentCategory;
                 }
             }
-
             $category->setParentCategoriesList($parentCategories);
         }
-
         return $categoriesCollection;
     }
 }
