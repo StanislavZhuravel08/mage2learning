@@ -32,6 +32,11 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
         return $data;
     }
 
+    public function getCollectionData()
+    {
+
+    }
+
     /**
      * @param Observer $observer
      * @throws \Exception

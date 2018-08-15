@@ -1,6 +1,7 @@
 <?php
 /** @var \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories $block */
-if ($categoriesCollection = $block->getRecentlyVisitedCategories()) :
+if ($block->pagePreloader->isCustomerLoggedIn()) :
+    $categoriesCollection = $block->getRecentlyVisitedCategories();
 ?>
 <ul class="custom-category-crumb-list">
     <?php foreach ($categoriesCollection as $category) : ?>
@@ -20,20 +21,26 @@ if ($categoriesCollection = $block->getRecentlyVisitedCategories()) :
     </li>
     <?php endforeach; ?>
 </ul>
-<?php endif; ?>
-<div id="custom-component" data-bind="scope:'customcomponent'">
-    <!-- ko template: getTemplate() --><!-- /ko -->
-    <script type="text/x-magento-init">
-    {
-        "#custom-component": {
-            "Magento_Ui/js/core/app": {
-               "components": {
-                    "customcomponent": {
-                        "component": "Stanislavz_CurrentCategory/js/custom-component"
-                    }
+<?php else : ?>
+<ul class="custom-category-crumb-list" data-bind="scope:'recentCategory'">
+    <li>
+        <ul>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </li>
+</ul>
+<script type="text/x-magento-init">
+{
+    ".custom-category-crumb-list": {
+        "Magento_Ui/js/core/app": {
+           "components": {
+                "recentCategory": {
+                    "component": "Stanislavz_CurrentCategory/js/recentCategory"
                 }
             }
         }
     }
-    </script>
-</div>
+}
+</script>
+<?php endif;

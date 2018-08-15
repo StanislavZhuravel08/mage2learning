@@ -15,7 +15,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     /**
      * @var CurrentCategoryModule
      */
-    private $pagePreloader;
+    public $pagePreloader;
 
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
@@ -52,14 +52,6 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     /**
      * @return int
      */
-    private function getCustomerId(): int
-    {
-        return $this->pagePreloader->getCustomerId();
-    }
-
-    /**
-     * @return int
-     */
     private function getLimit(): int
     {
         $limit = $this->_scopeConfig->getValue(self::XML_PATH_CATEGORY_QUANTITY, ScopeInterface::SCOPE_STORES);
@@ -74,7 +66,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     {
         /** @var NonCacheableCategoryCollection $categoriesCollection */
         $categoriesCollection = $this->nonCacheableCategoryCollectionFactory->create();
-        $categoriesCollection->addCustomerFilter($this->getCustomerId())
+        $categoriesCollection->addCustomerFilter($this->pagePreloader->getCustomerId())
             ->addNameToResult()
             ->getSelect()
             ->limit($this->getLimit());
@@ -110,4 +102,6 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
         }
         return $categoriesCollection;
     }
+
+
 }
