@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Stanislavz_CurrentCategory::current_category" title="Visited Categories" translate="title" module="Stanislavz_CurrentCategory"
+             sortOrder="100" parent="Magento_Customer::customer" action="current_category" resource="Stanislavz_CurrentCategory::current_category"
+        />
+    </menu>
+</config>

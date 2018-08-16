@@ -102,6 +102,5 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
         }
         return $categoriesCollection;
     }
-
-
 }
+

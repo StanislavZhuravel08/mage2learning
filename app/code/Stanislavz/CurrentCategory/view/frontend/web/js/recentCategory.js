@@ -15,7 +15,7 @@ define(
             getNewCategory: function () {
                 let url = this.getUrl();
 
-                $.get(url + 'recentCategory', function (response) {
+                $.get(url + 'recentCategory', { requestPath: window.location.href }, function (response) {
                     this.categories.push(response);
                     console.log(this.categories());
                 }.bind(this));

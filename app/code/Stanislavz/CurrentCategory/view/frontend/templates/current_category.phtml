@@ -7,9 +7,7 @@ if ($block->pagePreloader->isCustomerLoggedIn()) :
     <?php foreach ($categoriesCollection as $category) : ?>
     <li>
         <ul class="custom-category-crumbs">
-            <?php
-            foreach ($category->getParentCategoriesList() as $parentCategory) :
-            ?>
+            <?php foreach ($category->getParentCategoriesList() as $parentCategory) : ?>
                 <li>
                     <a href="<?= $parentCategory->getUrl(); ?>"><?= $parentCategory->getName(); ?></a>
                 </li>
@@ -33,14 +31,12 @@ if ($block->pagePreloader->isCustomerLoggedIn()) :
 <script type="text/x-magento-init">
 {
     ".custom-category-crumb-list": {
-        "Magento_Ui/js/core/app": {
-           "components": {
-                "recentCategory": {
-                    "component": "Stanislavz_CurrentCategory/js/recentCategory"
-                }
-            }
+        "recentCategory": {
+            "component": "Stanislavz_CurrentCategory/js/recentCategory"
         }
     }
 }
 </script>
-<?php endif;
+<?php endif; ?>
+<!--,-->
+<!--"category_id": --><?//= // $currentCategory->getId(); ?>
