@@ -12,7 +12,7 @@ class Index extends \Magento\Backend\App\Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Magento_Cms::page';
+    const ADMIN_RESOURCE = 'Stanislavz_CurrentCategory::current_category';
 
     /**
      * @var PageFactory
@@ -46,8 +46,8 @@ class Index extends \Magento\Backend\App\Action
         $resultPage->getConfig()->getTitle()->prepend(__('Visited Categories'));
 
         $dataPersistor = $this->_objectManager->get(\Magento\Framework\App\Request\DataPersistorInterface::class);
-        $dataPersistor->clear('cms_page');
-
+        $dataPersistor->clear('current_category');
+        $this->getRequest()->getFullActionName();
         return $resultPage;
     }
 }

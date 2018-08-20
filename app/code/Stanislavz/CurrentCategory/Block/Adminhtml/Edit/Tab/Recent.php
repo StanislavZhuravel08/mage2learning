@@ -11,11 +11,6 @@ use Magento\Customer\Controller\RegistryConstants;
 class Recent extends TabWrapper implements TabInterface
 {
     /**
-     * @var bool
-     */
-    protected $isAjaxLoaded = false;
-
-    /**
      * @var \Magento\Framework\Registry
      */
     private $coreRegistry;
@@ -56,7 +51,7 @@ class Recent extends TabWrapper implements TabInterface
      */
     public function getTabTitle()
     {
-        return __('Recent Categories');
+        return __('Visited Categories');
     }
 
     /**
@@ -90,6 +85,17 @@ class Recent extends TabWrapper implements TabInterface
      */
     public function getTabUrl(): string
     {
-        return $this->getUrl('index/*/recent', ['_current' => true]);
+//        return $this->getUrl('customer/*/recent', ['_current' => true]);
+        return '';
+    }
+
+    /**
+     * Tab should be loaded trough Ajax call
+     *
+     * @return bool
+     */
+    public function isAjaxLoaded(): bool
+    {
+        return false;
     }
 }
