@@ -85,8 +85,8 @@ class Recent extends TabWrapper implements TabInterface
      */
     public function getTabUrl(): string
     {
-//        return $this->getUrl('customer/*/recent', ['_current' => true]);
-        return '';
+        return $this->getUrl('customer/*/visitedcategories', ['_current' => true]);
+//        return '';
     }
 
     /**
@@ -96,6 +96,6 @@ class Recent extends TabWrapper implements TabInterface
      */
     public function isAjaxLoaded(): bool
     {
-        return false;
+        return true;
     }
 }

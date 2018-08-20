@@ -68,29 +68,29 @@
                 </settings>
             </filterSelect>
         </filters>
-        <massaction name="listing_massaction">
-            <action name="delete">
-                <settings>
-                    <confirm>
-                        <message translate="true">Are you sure you want to delete selected items?</message>
-                        <title translate="true">Delete items</title>
-                    </confirm>
-                    <url path="current-category/index/index"/>
-                    <type>delete</type>
-                    <label translate="true">Delete</label>
-                </settings>
-            </action>
-            <!--<action name="edit">-->
+        <!--<massaction name="listing_massaction">-->
+            <!--<action name="delete">-->
                 <!--<settings>-->
-                    <!--<callback>-->
-                        <!--<target>editSelected</target>-->
-                        <!--<provider>cms_page_listing.cms_page_listing.cms_page_columns_editor</provider>-->
-                    <!--</callback>-->
-                    <!--<type>edit</type>-->
-                    <!--<label translate="true">Edit</label>-->
+                    <!--<confirm>-->
+                        <!--<message translate="true">Are you sure you want to delete selected items?</message>-->
+                        <!--<title translate="true">Delete items</title>-->
+                    <!--</confirm>-->
+                    <!--<url path="current-category/index/index"/>-->
+                    <!--<type>delete</type>-->
+                    <!--<label translate="true">Delete</label>-->
                 <!--</settings>-->
             <!--</action>-->
-        </massaction>
+            <!--&lt;!&ndash;<action name="edit">&ndash;&gt;-->
+                <!--&lt;!&ndash;<settings>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<callback>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<target>editSelected</target>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<provider>cms_page_listing.cms_page_listing.cms_page_columns_editor</provider>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</callback>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<type>edit</type>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<label translate="true">Edit</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;</settings>&ndash;&gt;-->
+            <!--&lt;!&ndash;</action>&ndash;&gt;-->
+        <!--</massaction>-->
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="visited_categories_columns">
@@ -115,13 +115,13 @@
                 </param>
             </childDefaults>
         </settings>
-        <selectionsColumn name="ids">
-            <settings>
-                <indexField>visit_id</indexField>
-                <resizeEnabled>false</resizeEnabled>
-                <resizeDefaultWidth>55</resizeDefaultWidth>
-            </settings>
-        </selectionsColumn>
+        <!--<selectionsColumn name="ids">-->
+            <!--<settings>-->
+                <!--<indexField>visit_id</indexField>-->
+                <!--<resizeEnabled>false</resizeEnabled>-->
+                <!--<resizeDefaultWidth>55</resizeDefaultWidth>-->
+            <!--</settings>-->
+        <!--</selectionsColumn>-->
         <column name="visit_id">
             <settings>
                 <filter>textRange</filter>
@@ -147,6 +147,13 @@
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">Customer ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="category_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Category ID</label>
                 <sorting>asc</sorting>
             </settings>
         </column>
