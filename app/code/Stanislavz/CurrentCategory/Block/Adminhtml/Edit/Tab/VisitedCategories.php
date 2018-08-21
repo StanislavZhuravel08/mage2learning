@@ -8,7 +8,7 @@ use Magento\Ui\Component\Layout\Tabs\TabWrapper;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
 use Magento\Customer\Controller\RegistryConstants;
 
-class Recent extends TabWrapper implements TabInterface
+class VisitedCategories extends TabWrapper implements TabInterface
 {
     /**
      * @var \Magento\Framework\Registry
@@ -85,7 +85,8 @@ class Recent extends TabWrapper implements TabInterface
      */
     public function getTabUrl(): string
     {
-        return $this->getUrl('customer/*/visitedcategories', ['_current' => true]);
+        $this->getRequest()->getFullActionName();
+        return $this->getUrl('customer/*/visited_categories', ['_current' => true]);
 //        return '';
     }
 

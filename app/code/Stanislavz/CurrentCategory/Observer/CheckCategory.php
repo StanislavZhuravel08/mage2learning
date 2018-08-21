@@ -43,21 +43,21 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
      */
     public function execute(Observer $observer)
     {
-//        $conditionCategoryId = $this->currentCategory->getCurrentCategory()->getId();
-//        $conditionCategoryId = ($conditionCategoryId > 2) ? $conditionCategoryId : 0;
-//        $conditionCustomerIsLoggedIn = $this->currentCategory->isCustomerLoggedIn();
-//
-//        if ($conditionCategoryId && $conditionCustomerIsLoggedIn) {
-//            $data = $this->getPageData();
-//            /** @var RecentCategory $recentCategory */
-//            $recentCategory = $this->recentCategory->create();
-//            $collection = $recentCategory->getCollection();
-//            $collection->addFieldToFilter('category_id', $conditionCategoryId)
-//                ->addFieldToFilter('customer_id', $conditionCustomerIsLoggedIn);
-//
-//            $recentCategory = $collection->getFirstItem();
-//            $recentCategory->addData($data)
-//                ->save();
-//        }
+        $conditionCategoryId = $this->currentCategory->getCurrentCategory()->getId();
+        $conditionCategoryId = ($conditionCategoryId > 2) ? $conditionCategoryId : 0;
+        $conditionCustomerIsLoggedIn = $this->currentCategory->isCustomerLoggedIn();
+
+        if ($conditionCategoryId && $conditionCustomerIsLoggedIn) {
+            $data = $this->getPageData();
+            /** @var RecentCategory $recentCategory */
+            $recentCategory = $this->recentCategory->create();
+            $collection = $recentCategory->getCollection();
+            $collection->addFieldToFilter('category_id', $conditionCategoryId)
+                ->addFieldToFilter('customer_id', $conditionCustomerIsLoggedIn);
+
+            $recentCategory = $collection->getFirstItem();
+            $recentCategory->addData($data)
+                ->save();
+        }
     }
 }

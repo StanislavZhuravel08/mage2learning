@@ -4,7 +4,7 @@
 namespace Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab\View;
 
 use Magento\Customer\Controller\RegistryConstants;
-use Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\CollectionFactory;
+use Stanislavz\CurrentCategory\Model\ResourceModel\VisitedCategories\Grid\CollectionFactory;
 
 class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
 {
@@ -16,9 +16,7 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
     private $coreRegistry;
 
     /**
-     * Wishlist item collection factory.
-     *
-     * @var \Magento\Wishlist\Model\ResourceModel\Item\CollectionFactory
+     * @var \Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\CollectionFactory
      */
     private $collectionFactory;
 
@@ -51,11 +49,11 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('visitedCategoriesGrid');
+        $this->setId('visited_categories_grid');
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
-        $this->setEmptyText(__('There are no items in customer\'s shopping cart.'));
+        $this->setEmptyText(__('There are no visits in customer\'s session.'));
     }
 
     /**
@@ -80,7 +78,7 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
      * @return \Magento\Backend\Block\Widget\Grid\Extended
      * @throws \Exception
      */
-    protected function _prepareColumns()
+    protected function _prepareColumns(): \Magento\Backend\Block\Widget\Grid\Extended
     {
         $this->addColumn(
             'visit_id',
@@ -121,11 +119,11 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
         return $this->getCollection()->getSize() >= 0;
     }
 
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function getRowUrl($row): string
-//    {
-//        return $this->getUrl('catalog/product/edit', ['id' => $row->getProductId()]);
-//    }
+    /**
+     * @return string
+     */
+    public function getGridUrl(): string
+    {
+        return $this->getUrl('customer/*/view_visited_categories', ['_current' => true]);
+    }
 }

@@ -24,6 +24,13 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     private $coreRegistry;
 
+    /**
+     * Index constructor.
+     * @param Context $context
+     * @param Registry $coreRegistry
+     * @param CategoryFactory $categoryFactory
+     * @param CurrentCategoryModule $currentCategoryModule
+     */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
@@ -36,24 +43,14 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->categoryFactory = $categoryFactory;
     }
 
-    private function getRequestPath()
-    {
-        $paramRequestPath = $this->_request->getParam('requestPath');
-
-        //return
-    }
-
     /**
      * @return Json
      */
     public function execute(): Json
     {
-        $requestPath = $this->getRequestPath();
+        $request = $this->getRequest()->getParams();
         $currentCategoryId = $this->currentCategoryModule->getCurrentCategory()->getId();
-        $catId = $this->coreRegistry->registry('current_category');
         $responseData['category_id'] = $currentCategoryId;
-        $responseData['cat_id'] = $catId;
-
         /** @var Json $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         return $response->setData($responseData);

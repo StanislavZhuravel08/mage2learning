@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    <htmlContent name="visitedcategories_content">
-        <block class="Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab\Recent" name="visitedcategories" />
+    <htmlContent name="visited_categories_content">
+        <block class="Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab\VisitedCategories" name="visitedCategories" />
     </htmlContent>
 </form>
