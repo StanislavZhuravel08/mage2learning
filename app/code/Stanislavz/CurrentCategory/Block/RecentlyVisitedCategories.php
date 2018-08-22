@@ -52,7 +52,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     /**
      * @return int
      */
-    private function getLimit(): int
+    public function getLimit(): int
     {
         $limit = $this->_scopeConfig->getValue(self::XML_PATH_CATEGORY_QUANTITY, ScopeInterface::SCOPE_STORES);
         return (int) $limit;
@@ -103,4 +103,3 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
         return $categoriesCollection;
     }
 }
-

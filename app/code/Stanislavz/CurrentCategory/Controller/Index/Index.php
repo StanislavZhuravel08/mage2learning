@@ -48,11 +48,10 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute(): Json
     {
-        $request = $this->getRequest()->getParams();
-        $currentCategoryId = $this->currentCategoryModule->getCurrentCategory()->getId();
-        $responseData['category_id'] = $currentCategoryId;
+        $requestData = $this->getRequest()->getParam('sendData');
+
         /** @var Json $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        return $response->setData($responseData);
+        return $response->setData('ok');
     }
 }
