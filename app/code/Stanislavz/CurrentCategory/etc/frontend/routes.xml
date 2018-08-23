@@ -4,7 +4,7 @@
         <!--<route id="current_category" frontName="current-category">-->
             <!--<module name="Stanislavz_CurrentCategory"/>-->
         <!--</route>-->
-        <route id="recent" frontName="recentCategory">
+        <route id="visitedCategories" frontName="visitedCategories">
             <module name="Stanislavz_CurrentCategory"/>
         </route>
     </router>

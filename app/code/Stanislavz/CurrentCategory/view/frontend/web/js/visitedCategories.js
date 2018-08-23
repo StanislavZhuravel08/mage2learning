@@ -22,7 +22,7 @@ define(
             getNewCategory: function () {
                 let url = this.getUrl();
                 let sendData = this.getCopyCategories();
-                $.get(url + 'recentCategory', { "sendData" : sendData }, function (response) {
+                $.get(url + 'visitedCategories', { "sendData" : sendData }, function (response) {
                     this.setNewCategory({ categoryId: this.categoryId}, this.limit);
                     console.log(customerData.get(this.dataFieldName)());
                 }.bind(this));

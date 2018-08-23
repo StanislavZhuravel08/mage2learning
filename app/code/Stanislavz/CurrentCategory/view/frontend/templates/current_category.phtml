@@ -19,30 +19,18 @@ if ($block->pagePreloader->isCustomerLoggedIn()) :
     </li>
     <?php endforeach; ?>
 </ul>
-<?php
-else :
-    ?>
-<ul class="custom-category-crumb-list" data-bind="scope:'recentCategory'">
-    <li>
-        <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-        </ul>
-    </li>
-</ul>
-<script type="text/x-magento-init">
-{
-    ".custom-category-crumb-list": {
-       "Magento_Ui/js/core/app": {
-           "components": {
-                "recentCategory": {
-                    "component"  : "Stanislavz_CurrentCategory/js/recentCategory",
-                    "categoryId" : "<?= $block->pagePreloader->getCurrentCategory()->getId(); ?>",
-                    "limit"      : "<?= $block->getLimit(); ?>"
-                }
+<?php else : ?>
+<div class="custom-category-crumb-list">
+    <script type="text/x-magento-init">
+    {
+        ".custom-category-crumb-list": {
+            "visitedCategories": {
+                "categoryId" : "<?= $block->pagePreloader->getCurrentCategory()->getId(); ?>",
+                "limit"      : "<?= $block->getLimit(); ?>"
             }
         }
     }
-}
-</script>
+    </script>
+</div>
+
 <?php endif; ?>

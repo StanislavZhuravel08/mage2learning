@@ -86,7 +86,7 @@ class VisitedCategories extends TabWrapper implements TabInterface
     public function getTabUrl(): string
     {
         $this->getRequest()->getFullActionName();
-        return $this->getUrl('customer/*/visited_categories', ['_current' => true]);
+        return $this->getUrl('current_category/index/visitedCategories', ['_current' => true]);
 //        return '';
     }
 

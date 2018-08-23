@@ -25,11 +25,10 @@
             </argument>
         </arguments>
     </type>
-
     <type name="Magento\Customer\CustomerData\SectionPoolInterface">
         <arguments>
             <argument name="sectionSourceMap" xsi:type="array">
-                <item name="visited_categories" xsi:type="string">\Stanislavz_CurrentCategory\Order\Plugin\Section</item>
+                <item name="visited_categories" xsi:type="string">\Stanislavz_CurrentCategory\CustomerData\VisitedCategories</item>
             </argument>
         </arguments>
     </type>
