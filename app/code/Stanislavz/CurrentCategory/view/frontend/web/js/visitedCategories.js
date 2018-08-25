@@ -13,9 +13,10 @@ define(
             categories   : [],
             dataFieldName: 'visited-categories',
 
-            initialize: function () {
+            initialize: function (currentCategoryId, limit) {
                 this._super();
                 this.categories = ko.observableArray([]);
+                this.customerData = customerData;
                 this.getNewCategory();
             },
 
@@ -24,7 +25,7 @@ define(
                 let sendData = this.getCopyCategories();
                 $.get(url + 'visitedCategories', { "sendData" : sendData }, function (response) {
                     this.setNewCategory({ categoryId: this.categoryId}, this.limit);
-                    console.log(customerData.get(this.dataFieldName)());
+                    console.log(this.customerData.get(this.dataFieldName)());
                 }.bind(this));
             },
 
@@ -42,11 +43,11 @@ define(
              * @returns {*}
              */
             getCopyCategories: function () {
-                if (!customerData.get(this.dataFieldName)().length) {
-                    customerData.set(this.dataFieldName, this.categories);
+                if (!this.customerData.get(this.dataFieldName)().length) {
+                    this.customerData.set(this.dataFieldName, this.categories);
                 }
 
-                return customerData.get(this.dataFieldName)();
+                return this.customerData.get(this.dataFieldName)();
             },
 
             /**
@@ -57,7 +58,7 @@ define(
              */
             setNewCategory: function (obj, limit) {
                 let data = this.addCategory(obj, limit);
-                customerData.set(this.dataFieldName, data);
+                this.customerData.set(this.dataFieldName, data);
             },
 
             /**
@@ -76,6 +77,12 @@ define(
                 return copyCategories;
             },
 
+            /**
+             *
+             * @param obj
+             * @param limit
+             * @returns {*}
+             */
             addCategory: function (obj, limit) {
                 let data = this.removeDistinct(obj);
                 if (data.length >= limit) {

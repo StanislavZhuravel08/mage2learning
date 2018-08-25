@@ -51,6 +51,6 @@ class Index extends \Magento\Framework\App\Action\Action
 
         /** @var Json $response */
         $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        return $response->setData('ok');
+        return $response->setData($requestData);
     }
 }

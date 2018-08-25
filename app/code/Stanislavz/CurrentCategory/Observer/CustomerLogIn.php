@@ -5,7 +5,7 @@ namespace Stanislavz\CurrentCategory\Observer;
 use Magento\Framework\Event\Observer;
 use Stanislavz\CurrentCategory\Model\RecentCategory;
 
-class CheckCategory implements \Magento\Framework\Event\ObserverInterface
+class CustomerLogIn implements \Magento\Framework\Event\ObserverInterface
 {
     private $currentCategory;
 
@@ -42,17 +42,17 @@ class CheckCategory implements \Magento\Framework\Event\ObserverInterface
         $conditionCategoryId = ($conditionCategoryId > 2) ? $conditionCategoryId : 0;
         $conditionCustomerIsLoggedIn = $this->currentCategory->isCustomerLoggedIn();
 
-        if ($conditionCategoryId && $conditionCustomerIsLoggedIn) {
-            $data = $this->getPageData();
-            /** @var RecentCategory $recentCategory */
-            $recentCategory = $this->recentCategory->create();
-            $collection = $recentCategory->getCollection();
-            $collection->addFieldToFilter('category_id', $conditionCategoryId)
-                ->addFieldToFilter('customer_id', $conditionCustomerIsLoggedIn);
-
-            $recentCategory = $collection->getFirstItem();
-            $recentCategory->addData($data)
-                ->save();
-        }
+//        if ($conditionCategoryId && $conditionCustomerIsLoggedIn) {
+//            $data = $this->getPageData();
+//            /** @var RecentCategory $recentCategory */
+//            $recentCategory = $this->recentCategory->create();
+//            $collection = $recentCategory->getCollection();
+//            $collection->addFieldToFilter('category_id', $conditionCategoryId)
+//                ->addFieldToFilter('customer_id', $conditionCustomerIsLoggedIn);
+//
+//            $recentCategory = $collection->getFirstItem();
+//            $recentCategory->addData($data)
+//                ->save();
+//        }
     }
 }
