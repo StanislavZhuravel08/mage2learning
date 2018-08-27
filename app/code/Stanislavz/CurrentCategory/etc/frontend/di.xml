@@ -3,7 +3,7 @@
     <type name="Magento\Customer\CustomerData\SectionPoolInterface">
         <arguments>
             <argument name="sectionSourceMap" xsi:type="array">
-                <item name="customsection" xsi:type="string">Stanislavz\CurrentCategory\CustomerData\CustomSection</item>
+                <item name="visited-categories-section" xsi:type="string">Stanislavz\CurrentCategory\CustomerData\VisitedCategoriesSection</item>
             </argument>
         </arguments>
     </type>

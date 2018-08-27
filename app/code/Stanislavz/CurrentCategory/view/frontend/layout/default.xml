@@ -1,11 +1,27 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="1column">
     <body>
+        <!--<referenceContainer name="page.bottom.container">-->
+            <!--<container name="recentCategory" htmlClass="custom-recent-categories" htmlTag="div" after="-">-->
+                <!--<block class="Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories" name="currentcategory"-->
+                       <!--template="Stanislavz_CurrentCategory::current_category.phtml" before="-"-->
+                <!--/>-->
+            <!--</container>-->
+        <!--</referenceContainer>-->
         <referenceContainer name="page.bottom.container">
-            <container name="recentCategory" htmlClass="custom-recent-categories" htmlTag="div" after="-">
-                <block class="Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories" name="currentcategory"
-                       template="Stanislavz_CurrentCategory::current_category.phtml" before="-"
-                />
+            <container name="visitedCategories" htmlClass="custom-recent-categories" htmlTag="div" after="-">
+                <block class="Magento\Framework\View\Element\Template" name="visited.categories.section"
+                       template="Stanislavz_CurrentCategory::visited/categories/sidebar.phtml" before="-">
+                    <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="components" xsi:type="array">
+                                <item name="visitedCategoriesSection" xsi:type="array">
+                                    <item name="component" xsi:type="string">Stanislavz_CurrentCategory/js/view/visited-categories-section</item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
             </container>
         </referenceContainer>
     </body>

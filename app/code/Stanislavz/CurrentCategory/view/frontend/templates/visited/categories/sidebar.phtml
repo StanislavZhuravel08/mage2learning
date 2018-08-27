@@ -1,0 +1,23 @@
+<?php /* @var $block \Magento\Framework\View\Element\Template */ ?>
+<div class="block block-visited-categories" data-bind="scope: 'visitedCategoriesSection'" data-role = "visited-categories-section">
+    <div class="block-title">
+        <strong id="block-visited-categories-heading" role="heading" aria-level="2"><?= /* @escapeNotVerified */ __('Visited Categories') ?></strong>
+    </div>
+    <div class="content">
+        <ul class="custom-category-crumb-list" data-bind="foreach: { data: visitedCategoriesSection().items, as: 'item'}">
+            <li>
+                <ul class="custom-category-crumbs">
+                    <!-- ko foreach: item.parentCategoryIds -->
+                    <li>
+                        <a href="#" data-bind="text: $data"></a>
+                    </li>
+                    <!-- /ko -->
+                    <li><a href="#" data-bind="text: item.currentCategoryId"></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {"[data-role=visited-categories-section]": {"Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>}}
+</script>

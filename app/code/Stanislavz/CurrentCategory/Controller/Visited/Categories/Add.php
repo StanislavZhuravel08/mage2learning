@@ -15,10 +15,7 @@ class Add extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-//        $requestData = $this->getRequest()->getParam('sendData');
-//
-//        /** @var Json $response */
-//        $response = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        return 'ok';
+        $requestData = $this->getRequest()->getParams();
+        return $requestData;
     }
 }

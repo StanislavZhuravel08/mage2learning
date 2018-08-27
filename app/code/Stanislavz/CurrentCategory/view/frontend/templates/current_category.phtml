@@ -20,17 +20,17 @@ if ($block->pagePreloader->isCustomerLoggedIn()) :
     <?php endforeach; ?>
 </ul>
 <?php else : ?>
-<div class="custom-category-crumb-list">
-    <script type="text/x-magento-init">
-    {
-        ".custom-category-crumb-list": {
-            "visitedCategories": {
-                "categoryId" : "<?= $block->pagePreloader->getCurrentCategory()->getId(); ?>",
-                "limit"      : "<?= $block->getLimit(); ?>"
-            }
-        }
-    }
-    </script>
-</div>
+<!--<div class="custom-category-crumb-list">-->
+<!--    <script type="text/x-magento-init">-->
+<!--    {-->
+<!--        ".custom-category-crumb-list": {-->
+<!--            "visitedCategories": {-->
+<!--                "categoryId" : "--><?//= $block->pagePreloader->getCurrentCategory()->getId(); ?><!--",-->
+<!--                "limit"      : "--><?//= $block->getLimit(); ?><!--"-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--    </script>-->
+<!--</div>-->
 
 <?php endif; ?>

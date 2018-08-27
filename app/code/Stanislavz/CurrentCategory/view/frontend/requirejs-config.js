@@ -7,6 +7,7 @@ var config = {
     map: {
         '*': {
             visitedCategories: 'Stanislavz_CurrentCategory/js/visitedCategories',
+            visitedCategoriesSection: 'Stanislavz_CurrentCategory/js/view/visitedCategoriesSection',
         }
     }
 };

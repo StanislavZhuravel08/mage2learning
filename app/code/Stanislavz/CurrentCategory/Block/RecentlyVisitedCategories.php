@@ -102,17 +102,4 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
         }
         return $categoriesCollection;
     }
-
-//    public function getJsLayout()
-//    {
-//        return json_encode([
-//            'components' =>
-//                [
-//                    'compareProducts' =>
-//                        [
-//                            'component' => 'Stanislavz_CurrentCategory/js/visitedCategories',
-//                        ],
-//                ],
-//        ]);
-//    }
 }
