@@ -4,7 +4,7 @@
     <action name="current_category/visited_categories/add">
         <section name="visited-categories"/>
     </action>
-    <action name="current_category/customer/login">
+    <action name="current_category/observer/customerLogIn">
         <section name="visited-categories"/>
     </action>
 </config>

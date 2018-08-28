@@ -15,7 +15,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     /**
      * @var CurrentCategoryModule
      */
-    public $pagePreloader;
+    public $helper;
 
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
@@ -29,7 +29,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
 
     /**
      * RecentlyVisitedCategories constructor.
-     * @param CurrentCategoryModule $pagePreloader
+     * @param \Stanislavz\CurrentCategory\Helper\Helper $helper
      * @param \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
      * @param \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory
      *                                                                 $nonCacheableCategoryCollectionFactory
@@ -37,14 +37,14 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
      * @param array $data
      */
     public function __construct(
-        CurrentCategoryModule $pagePreloader,
+        \Stanislavz\CurrentCategory\Helper\Helper $helper,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory $nonCacheableCategoryCollectionFactory,
         Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->pagePreloader = $pagePreloader;
+        $this->helper = $helper;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->nonCacheableCategoryCollectionFactory = $nonCacheableCategoryCollectionFactory;
     }
@@ -66,7 +66,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     {
         /** @var NonCacheableCategoryCollection $categoriesCollection */
         $categoriesCollection = $this->nonCacheableCategoryCollectionFactory->create();
-        $categoriesCollection->addCustomerFilter($this->pagePreloader->getCustomerId())
+        $categoriesCollection->addCustomerFilter($this->helper->getCustomerId())
             ->addNameToResult()
             ->getSelect()
             ->limit($this->getLimit());

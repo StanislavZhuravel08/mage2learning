@@ -5,14 +5,15 @@
     </div>
     <div class="content">
         <ul class="custom-category-crumb-list" data-bind="foreach: { data: visitedCategoriesSection().items, as: 'item'}">
+
             <li>
                 <ul class="custom-category-crumbs">
-                    <!-- ko foreach: item.parentCategoryIds -->
+                    <!-- ko foreach: parent_categories -->
                     <li>
-                        <a href="#" data-bind="text: $data"></a>
+                        <a data-bind="attr: { href: $data.parent_categories_url }, text: $data.parent_categories_name"></a>
                     </li>
                     <!-- /ko -->
-                    <li><a href="#" data-bind="text: item.currentCategoryId"></a></li>
+                    <li><a data-bind="attr: { href: item.category_url}, text: category_name"></a></li>
                 </ul>
             </li>
         </ul>
