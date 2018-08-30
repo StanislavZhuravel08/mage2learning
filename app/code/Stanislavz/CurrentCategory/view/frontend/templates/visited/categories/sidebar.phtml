@@ -1,11 +1,10 @@
-<?php /* @var $block \Magento\Framework\View\Element\Template */ ?>
-<div class="block block-visited-categories" data-bind="scope: 'visitedCategoriesSection'" data-role = "visited-categories-section">
+<?php /* @var $block \Stanislavz\CurrentCategory\Block\Visited\Categories\Sidebar */ ?>
+<div class="block block-visited-categories" data-bind="scope: 'visitedCategoriesSection'">
     <div class="block-title">
         <strong id="block-visited-categories-heading" role="heading" aria-level="2"><?= /* @escapeNotVerified */ __('Visited Categories') ?></strong>
     </div>
     <div class="content">
         <ul class="custom-category-crumb-list" data-bind="foreach: { data: visitedCategoriesSection().items, as: 'item'}">
-
             <li>
                 <ul class="custom-category-crumbs">
                     <!-- ko foreach: parent_categories -->
@@ -13,12 +12,18 @@
                         <a data-bind="attr: { href: $data.parent_categories_url }, text: $data.parent_categories_name"></a>
                     </li>
                     <!-- /ko -->
-                    <li><a data-bind="attr: { href: item.category_url}, text: category_name"></a></li>
+                    <li>
+                        <a data-bind="attr: { href: item.category_url}, text: category_name"></a>
+                    </li>
                 </ul>
             </li>
         </ul>
     </div>
 </div>
 <script type="text/x-magento-init">
-    {"[data-role=visited-categories-section]": {"Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>}}
+    {
+        ".block-visited-categories": {
+            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+        }
+    }
 </script>

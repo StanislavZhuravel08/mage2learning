@@ -1,21 +1,25 @@
 <?php
 
-namespace Stanislavz\CurrentCategory\Block;
+namespace Stanislavz\CurrentCategory\Helper;
 
-use Magento\Framework\View\Element\Template;
+use Magento\Framework\Url\Helper\Data as UrlHelper;
+use Stanislavz\CurrentCategory\Helper\Helper;
+use Magento\Framework\App\Helper\Context;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Stanislavz\CurrentCategory\Model\ResourceModel\Category\Collection as NonCacheableCategoryCollection;
 
-class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
+class HelperData extends \Stanislavz\CurrentCategory\Helper\Helper
 {
     const XML_PATH_CATEGORY_QUANTITY = 'customer/recent_category/recent_category_quantity';
 
     /**
-     * @var CurrentCategoryModule
+     * Store manager
+     *
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
-    public $helper;
+    private $_storeManager;
 
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
@@ -28,25 +32,31 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     private $nonCacheableCategoryCollectionFactory;
 
     /**
-     * RecentlyVisitedCategories constructor.
-     * @param \Stanislavz\CurrentCategory\Helper\Helper $helper
-     * @param \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
-     * @param \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory
-     *                                                                 $nonCacheableCategoryCollectionFactory
-     * @param Template\Context $context
-     * @param array $data
+     * HelperData constructor.
+     * @param Context $context
+     * @param \Magento\Catalog\Model\Layer\Resolver $layerResolver
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param UrlHelper $urlHelper
      */
     public function __construct(
-        \Stanislavz\CurrentCategory\Helper\Helper $helper,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Catalog\Model\Layer\Resolver $layerResolver,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Stanislavz\CurrentCategory\Model\ResourceModel\Category\CollectionFactory $nonCacheableCategoryCollectionFactory,
-        Template\Context $context,
-        array $data = []
+        UrlHelper $urlHelper
     ) {
-        parent::__construct($context, $data);
-        $this->helper = $helper;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->nonCacheableCategoryCollectionFactory = $nonCacheableCategoryCollectionFactory;
+        $this->_storeManager = $storeManager;
+        parent::__construct(
+            $context,
+            $layerResolver,
+            $customerSession,
+            $urlHelper
+        );
     }
 
     /**
@@ -54,7 +64,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
      */
     public function getLimit(): int
     {
-        $limit = $this->_scopeConfig->getValue(self::XML_PATH_CATEGORY_QUANTITY, ScopeInterface::SCOPE_STORES);
+        $limit = $this->scopeConfig->getValue(self::XML_PATH_CATEGORY_QUANTITY, ScopeInterface::SCOPE_STORES);
         return (int) $limit;
     }
 
@@ -66,7 +76,7 @@ class RecentlyVisitedCategories extends \Magento\Framework\View\Element\Template
     {
         /** @var NonCacheableCategoryCollection $categoriesCollection */
         $categoriesCollection = $this->nonCacheableCategoryCollectionFactory->create();
-        $categoriesCollection->addCustomerFilter($this->helper->getCustomerId())
+        $categoriesCollection->addCustomerFilter($this->getCustomerId())
             ->addNameToResult()
             ->getSelect()
             ->limit($this->getLimit());

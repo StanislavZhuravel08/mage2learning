@@ -3,6 +3,7 @@
 namespace Stanislavz\CurrentCategory\CustomerData;
 
 use Stanislavz\CurrentCategory\Helper\Helper;
+use Stanislavz\CurrentCategory\Helper\HelperData;
 use Magento\Customer\CustomerData\SectionSourceInterface;
 
 class VisitedCategoriesSection implements \Magento\Customer\CustomerData\SectionSourceInterface
@@ -15,19 +16,19 @@ class VisitedCategoriesSection implements \Magento\Customer\CustomerData\Section
     /**
      * @var \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories
      */
-    private $recentlyVisitedCategories;
+    private $helperData;
 
     /**
      * VisitedCategoriesSection constructor.
      * @param Helper $helper
-     * @param \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories $recentlyVisitedCategories
+     * @param HelperData $helperData
      */
     public function __construct(
         \Stanislavz\CurrentCategory\Helper\Helper $helper,
-        \Stanislavz\CurrentCategory\Block\RecentlyVisitedCategories $recentlyVisitedCategories
+        \Stanislavz\CurrentCategory\Helper\HelperData $helperData
     ) {
         $this->helper = $helper;
-        $this->recentlyVisitedCategories = $recentlyVisitedCategories;
+        $this->helperData = $helperData;
     }
 
     /**
@@ -57,7 +58,7 @@ class VisitedCategoriesSection implements \Magento\Customer\CustomerData\Section
     {
         $items = [];
         $item  = [];
-        $categoriesCollection = $this->recentlyVisitedCategories->getRecentlyVisitedCategories();
+        $categoriesCollection = $this->helperData->getRecentlyVisitedCategories();
 
         foreach ($categoriesCollection as $index => $category) {
             $item['category_id']       = $index;

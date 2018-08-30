@@ -95,4 +95,29 @@ class Collection extends VisitedCategoriesCollection implements SearchResultInte
         $this->_items = $items;
         return $this;
     }
+
+    /**
+     * @inheritdoc
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+        $this->getSelect()
+            ->join(
+                ['ev' => $this->getTable('catalog_category_entity_varchar')],
+                'main_table.category_id = ev.entity_id',
+                'value',
+                []
+            )
+            ->join(
+                ['ce' => $this->getTable('customer_entity')],
+                'main_table.customer_id = ce.entity_id',
+                ['name' => "CONCAT(firstname, ' ', lastname)"]
+            )
+            ->group(
+                'ev.entity_id'
+            );
+
+        return $this;
+    }
 }

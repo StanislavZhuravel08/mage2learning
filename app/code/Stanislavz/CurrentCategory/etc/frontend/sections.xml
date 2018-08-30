@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
-    <action name="current_category/visited_categories/add">
+    <action name="current_category/add">
         <section name="visited-categories"/>
     </action>
     <action name="current_category/observer/customerLogIn">

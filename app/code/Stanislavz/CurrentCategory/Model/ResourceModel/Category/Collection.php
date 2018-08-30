@@ -21,7 +21,7 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Category\Collectio
     protected function _initSelect()
     {
         parent::_initSelect();
-        $this->getSelect()
+        $this->getSelect()->columns('*')
             ->join(
                 ['rvc' => $this->getTable('recently_visited_categories')],
                 'e.entity_id = rvc.category_id',

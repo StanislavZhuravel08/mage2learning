@@ -2,6 +2,10 @@
 
 namespace Stanislavz\CurrentCategory\Controller\Adminhtml\Index;
 
+/**
+ * This Action loads 'Visited Categories' tab in 'Customer' menu tab
+ */
+
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 

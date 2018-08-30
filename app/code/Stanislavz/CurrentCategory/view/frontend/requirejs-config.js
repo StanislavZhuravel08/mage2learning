@@ -1,13 +1,7 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
 var config = {
     map: {
         '*': {
-            visitedCategories: 'Stanislavz_CurrentCategory/js/visitedCategories',
-            visitedCategoriesSection: 'Stanislavz_CurrentCategory/js/view/visitedCategoriesSection',
+            "visitedCategoriesSection": 'js/visitedCategories/visited-categories-section',
         }
     }
 };

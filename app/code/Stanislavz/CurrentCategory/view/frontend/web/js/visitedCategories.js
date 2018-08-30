@@ -21,10 +21,10 @@ define(
             },
 
             getNewCategory: function () {
-                let url = this.getUrl();
+                let baseUrl = this.getUrlBase();
                 let sendData = this.getCopyCategories();
-                $.get(url + 'visitedCategories', { "sendData" : sendData }, function (response) {
-                    this.setNewCategory({ categoryId: this.categoryId}, this.limit);
+                $.get(baseUrl + 'visitedCategories', { "sendData" : sendData }, function (response) {
+                    this.setNewCategory({ categoryId: this.categoryId }, this.limit);
                     console.log(this.customerData.get(this.dataFieldName)());
                 }.bind(this));
             },
@@ -32,7 +32,7 @@ define(
             /**
              * @returns {string}
              */
-            getUrl: function () {
+            getUrlBase: function () {
                 let url = window.location.href;
                 url = url.split('/');
                 url = [url[0], url[1], url[2]].join('/');
