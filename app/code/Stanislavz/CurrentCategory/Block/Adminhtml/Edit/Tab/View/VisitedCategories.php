@@ -84,6 +84,7 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
             'visit_id',
             ['header' => __('Visit ID'), 'index' => 'visit_id', 'type' => 'number', 'width' => '100px']
         );
+
         $this->addColumn(
             'category_id',
             [
@@ -91,14 +92,17 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
                 'index' => 'category_id',
             ]
         );
+
         $this->addColumn(
             'created_at',
             ['header' => __('Add Date'), 'index' => 'created_at', 'type' => 'date', 'width' => '140px']
         );
+
         $this->addColumn(
             'updated_at',
             ['header' => __('Modified Date'), 'index' => 'updated_at', 'type' => 'date', 'width' => '140px']
         );
+
         $this->addColumn(
             'customer_id',
             ['header' => __('Customer ID'), 'index' => 'customer_id', 'type' => 'number']

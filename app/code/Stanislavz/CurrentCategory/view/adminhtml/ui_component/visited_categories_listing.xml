@@ -59,7 +59,7 @@
             <filterSelect name="visit_id" provider="${ $.parentName }">
                 <settings>
                     <captionValue>0</captionValue>
-                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    <options class="Stanislavz\CurrentCategory\Ui\Component\Listing\Column\Options"/>
                     <label translate="true">Store View</label>
                     <dataScope>store_id</dataScope>
                     <imports>
@@ -68,18 +68,18 @@
                 </settings>
             </filterSelect>
         </filters>
-        <!--<massaction name="listing_massaction">-->
-            <!--<action name="delete">-->
-                <!--<settings>-->
-                    <!--<confirm>-->
-                        <!--<message translate="true">Are you sure you want to delete selected items?</message>-->
-                        <!--<title translate="true">Delete items</title>-->
-                    <!--</confirm>-->
-                    <!--<url path="current-category/index/index"/>-->
-                    <!--<type>delete</type>-->
-                    <!--<label translate="true">Delete</label>-->
-                <!--</settings>-->
-            <!--</action>-->
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="/current-category/visitedCategories/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete Visited Category</label>
+                </settings>
+            </action>
             <!--&lt;!&ndash;<action name="edit">&ndash;&gt;-->
                 <!--&lt;!&ndash;<settings>&ndash;&gt;-->
                     <!--&lt;!&ndash;<callback>&ndash;&gt;-->
@@ -90,20 +90,20 @@
                     <!--&lt;!&ndash;<label translate="true">Edit</label>&ndash;&gt;-->
                 <!--&lt;!&ndash;</settings>&ndash;&gt;-->
             <!--&lt;!&ndash;</action>&ndash;&gt;-->
-        <!--</massaction>-->
+        </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="visited_categories_columns">
         <settings>
-            <editorConfig>
-                <param name="clientConfig" xsi:type="array">
-                    <item name="saveUrl" xsi:type="url" path="cms/page/inlineEdit"/>
-                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
-                </param>
-                <param name="indexField" xsi:type="string">visit_id</param>
-                <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">visited_categories_listing.visited_categories_listing.visited_categories_columns.ids</param>
-            </editorConfig>
+            <!--<editorConfig>-->
+                <!--<param name="clientConfig" xsi:type="array">-->
+                    <!--<item name="saveUrl" xsi:type="url" path="cms/page/inlineEdit"/>-->
+                    <!--<item name="validateBeforeSave" xsi:type="boolean">false</item>-->
+                <!--</param>-->
+                <!--<param name="indexField" xsi:type="string">visit_id</param>-->
+                <!--<param name="enabled" xsi:type="boolean">true</param>-->
+                <!--<param name="selectProvider" xsi:type="string">visited_categories_listing.visited_categories_listing.visited_categories_columns.ids</param>-->
+            <!--</editorConfig>-->
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
                     <item name="provider" xsi:type="string">visited_categories_listing.visited_categories_listing.visited_categories_columns_editor</item>
@@ -115,13 +115,13 @@
                 </param>
             </childDefaults>
         </settings>
-        <!--<selectionsColumn name="ids">-->
-            <!--<settings>-->
-                <!--<indexField>visit_id</indexField>-->
-                <!--<resizeEnabled>false</resizeEnabled>-->
-                <!--<resizeDefaultWidth>55</resizeDefaultWidth>-->
-            <!--</settings>-->
-        <!--</selectionsColumn>-->
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>visit_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
         <column name="visit_id">
             <settings>
                 <filter>textRange</filter>
@@ -157,12 +157,12 @@
                 <sorting>asc</sorting>
             </settings>
         </column>
-        <!--<actionsColumn name="actions" class="Magento\Cms\Ui\Component\Listing\Column\PageActions">-->
-            <!--<settings>-->
-                <!--<indexField>visit_id</indexField>-->
-                <!--<resizeEnabled>false</resizeEnabled>-->
-                <!--<resizeDefaultWidth>107</resizeDefaultWidth>-->
-            <!--</settings>-->
-        <!--</actionsColumn>-->
+        <actionsColumn name="actions" class="Stanislavz\CurrentCategory\Ui\Component\Listing\Column\VisitedCategoriesActions">
+            <settings>
+                <indexField>visit_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>

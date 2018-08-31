@@ -1,10 +1,8 @@
 <?php
-/**
- *
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace Stanislavz\CurrentCategory\Controller\Adminhtml\VisitedCategories;
+
+use Stanislavz\CurrentCategory\Model\RecentCategory;
 
 class Delete extends \Magento\Backend\App\Action
 {
@@ -13,7 +11,7 @@ class Delete extends \Magento\Backend\App\Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Stanislavz_CurrentCategory::visited_categories_delete';
+    const ADMIN_RESOURCE = 'Stanislavz_CurrentCategory::current_category_delete';
 
     /**
      * Delete action
@@ -41,7 +39,7 @@ class Delete extends \Magento\Backend\App\Action
                     'adminhtml_current_category_on_delete',
                     ['title' => $title, 'status' => 'success']
                 );
-                return $resultRedirect->setPath('*/*/');
+                return $resultRedirect->setPath('current_category/index/index/');
             } catch (\Exception $e) {
                 $this->_eventManager->dispatch(
                     'adminhtml_current_category_on_delete',
@@ -50,12 +48,12 @@ class Delete extends \Magento\Backend\App\Action
                 // display error message
                 $this->messageManager->addError($e->getMessage());
                 // go back to edit form
-                return $resultRedirect->setPath('*/*/edit', ['visit_id' => $id]);
+                return $resultRedirect->setPath('current_category/index/index/', ['visit_id' => $id]);
             }
         }
         // display error message
         $this->messageManager->addError(__('We can\'t find a visited category to delete.'));
         // go to grid
-        return $resultRedirect->setPath('*/*/');
+        return $resultRedirect->setPath('current_category/index/index/');
     }
 }

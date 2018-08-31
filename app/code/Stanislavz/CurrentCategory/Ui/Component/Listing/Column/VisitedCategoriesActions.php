@@ -19,8 +19,7 @@ use Magento\Ui\Component\Listing\Columns\Column;
 class VisitedCategoriesActions extends Column
 {
     /** Url path */
-    const CMS_URL_PATH_EDIT = 'current-category/index/edit';
-    const CMS_URL_PATH_DELETE = 'current-category/index/delete';
+    const CMS_URL_PATH_DELETE = 'current_category/visitedCategories/delete';
 
     /**
      * @var \Magento\Cms\Block\Adminhtml\Page\Grid\Renderer\Action\UrlBuilder
@@ -31,11 +30,6 @@ class VisitedCategoriesActions extends Column
      * @var \Magento\Framework\UrlInterface
      */
     protected $urlBuilder;
-
-    /**
-     * @var string
-     */
-    private $editUrl;
 
     /**
      * @var Escaper
@@ -57,12 +51,10 @@ class VisitedCategoriesActions extends Column
         UrlBuilder $actionUrlBuilder,
         UrlInterface $urlBuilder,
         array $components = [],
-        array $data = [],
-        $editUrl = self::CMS_URL_PATH_EDIT
+        array $data = []
     ) {
         $this->urlBuilder = $urlBuilder;
         $this->actionUrlBuilder = $actionUrlBuilder;
-        $this->editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -78,11 +70,7 @@ class VisitedCategoriesActions extends Column
             foreach ($dataSource['data']['items'] as & $item) {
                 $name = $this->getData('name');
                 if (isset($item['visit_id'])) {
-                    $item[$name]['edit'] = [
-                        'href' => $this->urlBuilder->getUrl($this->editUrl, ['visit_id' => $item['visit_id']]),
-                        'label' => __('Edit')
-                    ];
-                    $title = $this->getEscaper()->escapeHtml($item['title']);
+                    $title = $this->getEscaper()->escapeHtml($item['value']);
                     $item[$name]['delete'] = [
                         'href' => $this->urlBuilder->getUrl(
                             self::CMS_URL_PATH_DELETE,
