@@ -5,6 +5,7 @@ namespace Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab\View;
 
 use Magento\Customer\Controller\RegistryConstants;
 use Stanislavz\CurrentCategory\Model\ResourceModel\VisitedCategories\Grid\CollectionFactory;
+use Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\Collection as RecentCategoryCollection;
 
 class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
 {
@@ -57,16 +58,15 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
-     * Prepare collection.
-     *
-     * @return $this
+     * @inheritdoc
      */
     protected function _prepareCollection(): self
     {
-        $collection = $this->collectionFactory->create()->addCustomerIdFilter(
-            $this->coreRegistry->registry(RegistryConstants::CURRENT_CUSTOMER_ID)
-        )->addDaysInWishlist()->addStoreData()->setInStockFilter(
-            true
+        /** @var RecentCategoryCollection $collection */
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToFilter(
+            'customer_id',
+            $this->getRequest()->getParams('id')
         );
 
         $this->setCollection($collection);
@@ -111,19 +111,19 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
         return parent::_prepareColumns();
     }
 
-    /**
-     * @return bool
-     */
-    public function getHeadersVisibility():bool
-    {
-        return $this->getCollection()->getSize() >= 0;
-    }
+//    /**
+//     * @return bool
+//     */
+//    public function getHeadersVisibility():bool
+//    {
+//        return $this->getCollection()->getSize() >= 0;
+//    }
 
-    /**
-     * @return string
-     */
-    public function getGridUrl(): string
-    {
-        return $this->getUrl('customer/*/view_visited_categories', ['_current' => true]);
-    }
+//    /**
+//     * @return string
+//     */
+//    public function getGridUrl(): string
+//    {
+//        return $this->getUrl('current_category/index/view', ['_current' => true]);
+//    }
 }

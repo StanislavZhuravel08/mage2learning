@@ -275,6 +275,7 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
      */
     public function getData()
     {
+
         return $this->searchResultToOutput($this->getSearchResult());
     }
 
@@ -306,6 +307,7 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
      */
     public function getSearchResult()
     {
-        return $this->reporting->search($this->getSearchCriteria());
+        $result = $this->reporting->search($this->getSearchCriteria());
+        return $result;
     }
 }

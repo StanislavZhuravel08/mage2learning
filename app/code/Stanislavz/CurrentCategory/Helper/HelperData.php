@@ -101,13 +101,19 @@ class HelperData extends \Stanislavz\CurrentCategory\Helper\Helper
             ->addFieldToFilter('level', ['gt' => 1]);
 
         foreach ($categoriesCollection as $category) {
+
+            // empty array which will be added to each category
             $parentCategories = [];
 
             foreach ($category->getParentIds() as $parentCategoryId) {
                 if ($parentCategory = $parentCategoriesCollection->getItemById($parentCategoryId)) {
+                    // if parentCategoryCollection has item with the same id as the current
+                    // CategoryParent it will be added to $parentCategories
                     $parentCategories[] = $parentCategory;
                 }
             }
+            // magic method saves $parentCategory array with Category object
+            // to each Category in $noncacheableCollection
             $category->setParentCategoriesList($parentCategories);
         }
         return $categoriesCollection;

@@ -8,8 +8,6 @@ class VisitedCategories extends \Magento\Backend\App\Action
 {
     public function execute()
     {
-        $this->getRequest()->getFullActionName();
-        $resultLayout = $this->resultFactory->create(ResultFactory::TYPE_LAYOUT);
-        return $resultLayout;
+        return $this->resultFactory->create(ResultFactory::TYPE_LAYOUT);
     }
 }

@@ -16,7 +16,7 @@ use Magento\Ui\Component\Listing\Columns\Column;
 /**
  * Class PageActions
  */
-class VisitedCategoriesActions extends Column
+class VisitedCategoriesActions extends \Magento\Ui\Component\Listing\Columns\Column
 {
     /** Url path */
     const CMS_URL_PATH_DELETE = 'current_category/visitedCategories/delete';

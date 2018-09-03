@@ -61,4 +61,21 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
         return $res;
     }
+
+//    /**
+//     * @inheritdoc
+//     */
+//    protected function _initSelect()
+//    {
+//        parent::_initSelect();
+//        $this->getSelect()
+//            ->join(
+//                ['cce' => $this->getTable('catalog_category_entity')],
+//                'main_table.category_id = cce.category_id',
+//                []
+//            )
+//            ->order('main_table.updated_at');
+//
+//        return $this;
+//    }
 }

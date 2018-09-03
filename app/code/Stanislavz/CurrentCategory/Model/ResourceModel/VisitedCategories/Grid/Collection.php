@@ -114,6 +114,11 @@ class Collection extends VisitedCategoriesCollection implements SearchResultInte
                 'main_table.customer_id = ce.entity_id',
                 ['name' => "CONCAT(firstname, ' ', lastname)"]
             )
+            ->join(
+                ['cce' => $this->getTable('catalog_category_entity')],
+                'main_table.category_id = cce.entity_id',
+                'path'
+            )
             ->group(
                 'ev.entity_id'
             );

@@ -49,17 +49,6 @@
                     </filters>
                 </templates>
             </settings>
-            <!--<filterSelect name="visit_id" provider="${ $.parentName }">-->
-                <!--<settings>-->
-                    <!--<captionValue>0</captionValue>-->
-                    <!--<options class="Stanislavz\CurrentCategory\Ui\Component\Listing\Column\Options"/>-->
-                    <!--<label translate="true">Store View</label>-->
-                    <!--<dataScope>visit_id</dataScope>-->
-                    <!--<imports>-->
-                        <!--<link name="visible">componentType = column, index = ${ $.index }:visible</link>-->
-                    <!--</imports>-->
-                <!--</settings>-->
-            <!--</filterSelect>-->
         </filters>
         <massaction name="listing_massaction">
             <action name="delete">
@@ -126,8 +115,15 @@
         </column>
         <column name="value">
             <settings>
-                <filter>textRange</filter>
+
                 <label translate="true">Category Name</label>
+
+            </settings>
+        </column>
+        <column name="path" class="Stanislavz\CurrentCategory\Ui\Component\Listing\Column\CategoryCrumbs">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Visited Categories</label>
                 <sorting>asc</sorting>
             </settings>
         </column>
