@@ -11,9 +11,7 @@
                     </resource>
                 </resource>
                 <resource id="Magento_Customer::customer">
-                    <resource id="Stanislavz_CurrentCategory::current_category" title="Visited Categories" translate="title" sortOrder="100">
-                        <resource id="Stanislavz_CurrentCategory::current_category_delete" title="Delete Visited Category" translate="title" sortOrder="20" />
-                    </resource>
+                    <resource id="Stanislavz_CurrentCategory::current_category" title="Visited Categories" translate="title" sortOrder="100" />
                 </resource>
             </resource>
         </resources>

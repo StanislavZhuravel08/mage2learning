@@ -1,6 +1,6 @@
 <?php
 
-namespace Stanislavz\CurrentCategory\Controller\Adminhtml\VisitedCategories;
+namespace Stanislavz\CurrentCategory\Controller\Adminhtml\Index;
 
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
@@ -9,13 +9,6 @@ use Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\CollectionFact
 
 class MassDelete extends \Magento\Backend\App\Action
 {
-    /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Stanislavz_CurrentCategory::current_category_delete';
-
     /**
      * @var Filter
      */
@@ -49,6 +42,7 @@ class MassDelete extends \Magento\Backend\App\Action
      */
     public function execute()
     {
+        $this->getRequest()->getParams();
         $collection = $this->filter->getCollection($this->collectionFactory->create());
         $collectionSize = $collection->getSize();
 
@@ -59,6 +53,7 @@ class MassDelete extends \Magento\Backend\App\Action
         $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.', $collectionSize));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('current_category/index/index/');
     }
