@@ -17,7 +17,7 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
     private $coreRegistry;
 
     /**
-     * @var \Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\CollectionFactory
+     * @var \Stanislavz\CurrentCategory\Model\ResourceModel\VisitedCategories\Grid\CollectionFactory
      */
     private $collectionFactory;
 
@@ -26,14 +26,15 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
      *
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Backend\Helper\Data $backendHelper
-     * @param \Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\CollectionFactory $collectionFactory
+     * @param \Stanislavz\CurrentCategory\Model\ResourceModel\VisitedCategories\Grid\CollectionFactory
+     *          $collectionFactory
      * @param \Magento\Framework\Registry $coreRegistry
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
-        \Stanislavz\CurrentCategory\Model\ResourceModel\RecentCategory\CollectionFactory $collectionFactory,
+        \Stanislavz\CurrentCategory\Model\ResourceModel\VisitedCategories\Grid\CollectionFactory $collectionFactory,
         \Magento\Framework\Registry $coreRegistry,
         array $data = []
     ) {
@@ -86,10 +87,10 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
         );
 
         $this->addColumn(
-            'category_id',
+            'value',
             [
-                'header' => __('Category ID'),
-                'index' => 'category_id',
+                'header' => __('Category Name'),
+                'index' => 'value',
             ]
         );
 
@@ -104,26 +105,14 @@ class VisitedCategories extends \Magento\Backend\Block\Widget\Grid\Extended
         );
 
         $this->addColumn(
-            'customer_id',
-            ['header' => __('Customer ID'), 'index' => 'customer_id', 'type' => 'number']
+            'test',
+            [
+                'header' => __('test'),
+                'index' => 'test',
+                'renderer' => \Stanislavz\CurrentCategory\Block\Adminhtml\Edit\Tab\View\Grid\Renderer\Item::class
+            ]
         );
 
         return parent::_prepareColumns();
     }
-
-//    /**
-//     * @return bool
-//     */
-//    public function getHeadersVisibility():bool
-//    {
-//        return $this->getCollection()->getSize() >= 0;
-//    }
-
-//    /**
-//     * @return string
-//     */
-//    public function getGridUrl(): string
-//    {
-//        return $this->getUrl('current_category/index/view', ['_current' => true]);
-//    }
 }

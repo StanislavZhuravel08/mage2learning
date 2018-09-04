@@ -58,7 +58,9 @@ class VisitedCategoriesSection implements \Magento\Customer\CustomerData\Section
     {
         $items = [];
         $item  = [];
-        $categoriesCollection = $this->helperData->getRecentlyVisitedCategories();
+        $categoriesCollection = $this->helperData->getRecentlyVisitedCategories(
+            $this->helperData->getCurrentCategoriesCollection()
+        );
 
         foreach ($categoriesCollection as $index => $category) {
             $item['category_id']       = $index;

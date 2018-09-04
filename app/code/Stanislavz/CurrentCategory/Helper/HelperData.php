@@ -6,7 +6,6 @@ use Magento\Framework\Url\Helper\Data as UrlHelper;
 use Stanislavz\CurrentCategory\Helper\Helper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Store\Model\ScopeInterface;
-use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Stanislavz\CurrentCategory\Model\ResourceModel\Category\Collection as NonCacheableCategoryCollection;
 
@@ -68,11 +67,7 @@ class HelperData extends \Stanislavz\CurrentCategory\Helper\Helper
         return (int) $limit;
     }
 
-    /**
-     * @return CategoryCollection
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getRecentlyVisitedCategories(): CategoryCollection
+    public function getCurrentCategoriesCollection()
     {
         /** @var NonCacheableCategoryCollection $categoriesCollection */
         $categoriesCollection = $this->nonCacheableCategoryCollectionFactory->create();
@@ -81,6 +76,16 @@ class HelperData extends \Stanislavz\CurrentCategory\Helper\Helper
             ->getSelect()
             ->limit($this->getLimit());
 
+        return $categoriesCollection;
+    }
+
+    /**
+     * @param $categoriesCollection
+     * @return CategoryCollection
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getRecentlyVisitedCategories($categoriesCollection): CategoryCollection
+    {
         $parentCategories = [];
 
         /** @var Category $category */
@@ -101,7 +106,6 @@ class HelperData extends \Stanislavz\CurrentCategory\Helper\Helper
             ->addFieldToFilter('level', ['gt' => 1]);
 
         foreach ($categoriesCollection as $category) {
-
             // empty array which will be added to each category
             $parentCategories = [];
 

@@ -70,6 +70,11 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
     protected $searchCriteria;
 
     /**
+     * @var \Magento\Ui\DataProvider\AddFieldToCollectionInterface[]
+     */
+    protected $addFieldStrategies;
+
+    /**
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
@@ -77,6 +82,7 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param RequestInterface $request
      * @param FilterBuilder $filterBuilder
+     * @param \Magento\Ui\DataProvider\AddFieldToCollectionInterface[] $addFieldStrategies
      * @param array $meta
      * @param array $data
      */
@@ -88,9 +94,11 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
         SearchCriteriaBuilder $searchCriteriaBuilder,
         RequestInterface $request,
         FilterBuilder $filterBuilder,
+        array $addFieldStrategies = [],
         array $meta = [],
         array $data = []
     ) {
+        $this->addFieldStrategies = $addFieldStrategies;
         $this->request = $request;
         $this->filterBuilder = $filterBuilder;
         $this->name = $name;
@@ -197,6 +205,22 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
         return isset($this->meta[$fieldSetName]['children'][$fieldName])
             ? $this->meta[$fieldSetName]['children'][$fieldName]
             : [];
+    }
+
+    /**
+     * Add field to select
+     *
+     * @param string|array $field
+     * @param string|null $alias
+     * @return void
+     */
+    public function addField($field, $alias = null)
+    {
+        if (isset($this->addFieldStrategies[$field])) {
+            $this->addFieldStrategies[$field]->addField($this->getCollection(), $field, $alias);
+        } else {
+            parent::addField($field, $alias);
+        }
     }
 
     /**
